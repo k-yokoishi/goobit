@@ -1,18 +1,61 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Container } from "native-base";
-import Footer from "./component/Footer";
+import { Container, Icon } from "native-base";
+import Goal from "./component/Goal";
+import Habit from "./component/Habit";
+import Home from "./component/Home";
+import Setting from "./component/Setting";
+import { createAppContainer, createBottomTabNavigator } from "react-navigation";
 
-export default class App extends React.Component {
+const withScreen = WrappedComponent => class extends React.Component {
   render() {
     return (
       <Container>
         <View style={styles.container}>
-          <Text>Open up App.js to start working on your app</Text>
+          <WrappedComponent />
         </View>
-        <Footer />
       </Container>
     );
+  }
+};
+
+const getTabBarIcon = (navigation, focused, tintColor) => {
+  const { routeName } = navigation.state;
+  var iconName = "";
+  if (routeName === "Home") {
+    iconName = "home";
+  } else if (routeName === "Goal") {
+    iconName = "trophy";
+  } else if (routeName === "Habit") {
+    iconName = "calendar";
+  } else if (routeName === "Setting") {
+    iconName = "settings";
+  }
+  return <Icon name={iconName} style={{ color: tintColor }} />;
+};
+const RootStack = createBottomTabNavigator(
+  {
+    Home: { screen: withScreen(Home) },
+    Goal: { screen: withScreen(Goal) },
+    Habit: { screen: withScreen(Habit) },
+    Setting: { screen: withScreen(Setting) }
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => getTabBarIcon(navigation, focused, tintColor)
+    }),
+    tabBarOptions: {
+      activeTintColor: "#D32E5E",
+      inactiveTintColor: "gray"
+    }
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
+
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
   }
 }
 
