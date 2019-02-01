@@ -54,14 +54,14 @@ const RootStack = createBottomTabNavigator(
 const AppContainer = createAppContainer(RootStack);
 
 // Comment in here to check storybook
-// export default from "./storybook";
+export default from "./storybook";
 
 // Comment out here to check storybook
-export default class App extends React.Component {
-  render() {
-    return <AppContainer />;
-  }
-}
+// export default class App extends React.Component {
+//   render() {
+//     return <AppContainer />;
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {
