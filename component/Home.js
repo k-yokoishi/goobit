@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 export default class Home extends React.Component {
   render() {
-    const { goal, date, habits } = this.props;
+    const { goal, date, habits, check } = this.props;
     const d = new Date(date);
     console.log(this.props);
     return (
@@ -32,7 +32,11 @@ export default class Home extends React.Component {
           </ListItem>
           {habits.map(habit => (
             <ListItem key={habit.id}>
-              <CheckBox checked={habit.done} color="#D32E5E" />
+              <CheckBox
+                checked={habit.done}
+                color="#D32E5E"
+                onPress={() => check(habit.id, habit.done)}
+              />
               <Body>
                 <Text>{habit.habit}</Text>
               </Body>
