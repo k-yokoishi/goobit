@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Container, Icon } from 'native-base';
+import { Provider } from 'react-redux'
 import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
-import GoalSetting from './component/GoalSetting';
+import GoalSettingApp from './container/GoalSetting';
 import Habit from './component/Habit';
-import Home from './component/Home';
+import HomeApp from './container/Home'
 import Setting from './component/Setting';
+import store from './redux/store'
 
 const styles = StyleSheet.create({
   container: {
@@ -13,16 +15,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 64
   },
 });
 
 const withScreen = WrappedComponent => class extends React.Component {
   render() {
     return (
-      <Container>
-        <View style={styles.container}>
-          <WrappedComponent />
-        </View>
+      <Container style={styles.container}>
+        <WrappedComponent />
       </Container>
     );
   }
@@ -45,8 +46,8 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 
 const RootStack = createBottomTabNavigator(
   {
-    Home: { screen: withScreen(Home) },
-    Goal: { screen: withScreen(GoalSetting) },
+    Home: { screen: withScreen(HomeApp) },
+    Goal: { screen: withScreen(GoalSettingApp) },
     Habit: { screen: withScreen(Habit) },
     Setting: { screen: withScreen(Setting) },
   },
@@ -62,8 +63,15 @@ const RootStack = createBottomTabNavigator(
 );
 
 // Comment in here to check storybook
-import storybook from './storybook'; 
-export default storybook;
+// import storybook from './storybook'; 
+// export default storybook;
 
 // Comment out here to check storybook
-// export default createAppContainer(RootStack);
+const AppContainer = createAppContainer(RootStack);
+
+const App = () => (
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>
+)
+export default App

@@ -14,7 +14,11 @@ const styles = StyleSheet.create({
 
 const Home = ({ goal, habits, check }) => (
   <Container>
-    {goal && <H1 style={styles.title}>{goal.text}</H1>}
+    {goal.text ? (
+      <H1 style={styles.title}>{goal.text}</H1>
+    ) : (
+      <H1 style={styles.title}>目標が設定されていません</H1>
+    )}
     <List>
       <ListItem itemHeader first>
         <H2 style={styles.listTitle}>今日やること</H2>
