@@ -4,12 +4,27 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "eslint": "eslint \"**/*.js\"",
+    "format": "prettier-eslint \"**/*.js\" --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn format",
+      "yarn eslint",
+      "git add"
+    ]
   },
   "dependencies": {
     "@expo/vector-icons": "^9.0.0",
     "expo": "^32.0.0",
     "native-base": "^2.10.0",
+    "prop-types": "^15.6.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-navigation": "^3.0.9"
@@ -19,7 +34,15 @@
     "@storybook/addon-ondevice-knobs": "^4.1.11",
     "@storybook/addon-ondevice-notes": "^4.1.11",
     "@storybook/react-native": "^4.1.11",
-    "babel-preset-expo": "^5.0.0"
+    "babel-preset-expo": "^5.0.0",
+    "eslint": "^5.13.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-react": "^7.12.4",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.3",
+    "prettier-eslint-cli": "^4.7.1"
   },
   "private": true
 }
