@@ -1,10 +1,10 @@
-import { AppRegistry } from "react-native";
-import { getStorybookUI, configure } from "@storybook/react-native";
+import { AppRegistry } from 'react-native';
+import { getStorybookUI, configure } from '@storybook/react-native';
 
-import "./rn-addons";
+import './rn-addons';
 
 configure(() => {
-  require("./stories");
+  require('./stories');
 }, module);
 
 const StorybookUIRoot = getStorybookUI({});
