@@ -1,34 +1,24 @@
 import React from "react";
-import { Body, CheckBox, Container, List, ListItem, Text } from "native-base";
+import { Body, CheckBox, Container, H1, H2, List, ListItem, Text } from "native-base";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   title: {
     textAlign: "center",
-    fontSize: 32,
-    margin: 16
-  },
-  titleDate: {
-    fontSize: 16,
-    margin: 16,
-    textAlign: "center"
-  },
-  listTitle: {
-    fontSize: 16
+    margin: 8
   }
 });
 export default class Home extends React.Component {
   render() {
-    const { goal, date, habits, check } = this.props;
-    const d = new Date(date);
+    const { goals, habits, check } = this.props;
     console.log(this.props);
     return (
       <Container>
-        <Text style={styles.titleDate}>{`${d.getFullYear()}年${d.getMonth()}月の目標`}</Text>
-        <Text style={styles.title}>{goal}</Text>
+        <Text style={styles.titleDate}>{}</Text>
+        {goals.map(goal => <H1 style={styles.title}>{goal}</H1>)}
         <List>
           <ListItem itemHeader first>
-            <Text style={styles.listTitle}>今日やること</Text>
+            <H2 style={styles.listTitle}>今日やること</H2>
           </ListItem>
           {habits.map(habit => (
             <ListItem key={habit.id}>
