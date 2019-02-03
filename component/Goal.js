@@ -15,22 +15,18 @@ const styles = StyleSheet.create({
 
 export default class GoalSetting extends React.Component {
   render() {
-    const { goals } = this.props;
+    const { goal } = this.props;
     return (
       <Container>
         <List>
-          {goals.length
-            ? goals.map(goal => {
-                return (
-                  <ListItem key={goal.id}>
-                    <Left>
-                      <Text>
-                        {goal.text}
-                      </Text>
-                    </Left>
-                  </ListItem>
-                );
-              })
+          {goal
+            ? <ListItem key={goal.id}>
+                <Left>
+                  <Text>
+                    {goal.text}
+                  </Text>
+                </Left>
+              </ListItem>
             : <Text>目標を設定しましょう</Text>}
         </List>
         <Button style={styles.createButton}>

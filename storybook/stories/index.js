@@ -19,7 +19,7 @@ homeStories
     "with habits",
     () => (
       <Home
-        goals={[text("Goal 1", "56キロになる"), text("Goal 2", "54キロになる")]}
+        goal={{ text: text("Goal 1", "56キロになる") }}
         habits={[
           { id: "1b8rja", habit: "腹筋を100回やる", done: boolean("habit1", false) },
           { id: "gz0bea", habit: "腹筋を100回やる", done: boolean("habit2", true) },
@@ -30,14 +30,12 @@ homeStories
     ),
     { notes: "Initial page" }
   )
-  .add("without habit", () => <Home goals={[text("Goal 1", "56キロになる")]} habits={[]} />);
+  .add("without habit", () => <Home goal={{ text: text("Goal 1", "56キロになる") }} habits={[]} />);
 
 const goalStories = storiesOf("Goal", module);
 goalStories
-  .add("does not hove goal", () => <Goal goals={[]} />)
-  .add("has 2 goals", () => (
-    <Goal goals={[{ id: "dfqb5l", text: "56キロになる" }, { id: "oir90b", text: "54キロになる" }]} />
-  ));
+  .add("does not hov goal", () => <Goal goal={null} />)
+  .add("has a goal", () => <Goal goal={{ id: "dfqb5l", text: "56キロになる" }} />);
 
 const goalSettingStories = storiesOf("Goal Setting", module);
 goalSettingStories.add("Goal Setting", () => <GoalSetting />);

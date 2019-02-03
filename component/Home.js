@@ -10,12 +10,11 @@ const styles = StyleSheet.create({
 });
 export default class Home extends React.Component {
   render() {
-    const { goals, habits, check } = this.props;
-    console.log(this.props);
+    const { goal, habits, check } = this.props;
     return (
       <Container>
         <Text style={styles.titleDate}>{}</Text>
-        {goals.map(goal => <H1 style={styles.title}>{goal}</H1>)}
+        {goal && <H1 style={styles.title}>{goal.text}</H1>}
         <List>
           <ListItem itemHeader first>
             <H2 style={styles.listTitle}>今日やること</H2>
