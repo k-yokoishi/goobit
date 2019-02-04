@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "eject": "expo eject",
     "eslint": "eslint \"**/*.js\"",
-    "format": "prettier-eslint \"**/*.js\" --write"
+    "format": "prettier-eslint \"**/*.js\" --write",
+    "rndebugger": "open \"rndebugger://set-debugger-loc?host=localhost&port=19001\""
   },
   "husky": {
     "hooks": {
