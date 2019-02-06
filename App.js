@@ -1,9 +1,11 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Container, Icon } from "native-base";
+import { Container, Icon, StyleProvider } from "native-base";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { createAppContainer, createBottomTabNavigator } from "react-navigation";
+import getTheme from './native-base-theme/components'
+import commonColor from './native-base-theme/variables/commonColor'
 import GoalSettingApp from "./container/GoalSetting";
 import Habit from "./component/Habit";
 import HomeApp from "./container/Home";
@@ -73,10 +75,12 @@ const AppContainer = createAppContainer(RootStack);
 
 const { store, persistor } = configureStore();
 const App = () => (
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <AppContainer />
-    </PersistGate>
-  </Provider>
+  <StyleProvider style={getTheme(commonColor)}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <AppContainer />
+      </PersistGate>
+    </Provider>
+  </StyleProvider>
 );
 export default App;
