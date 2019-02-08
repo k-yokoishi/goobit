@@ -45,7 +45,7 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
   } else if (routeName === "Setting") {
     iconName = "settings";
   }
-  return <Icon name={iconName} style={{ color: tintColor }} />;
+  return <Icon testID={routeName.toLowerCase()} name={iconName} style={{ color: tintColor }} />;
 };
 
 const RootStack = createBottomTabNavigator(
@@ -67,20 +67,20 @@ const RootStack = createBottomTabNavigator(
 );
 
 // Comment in here to check storybook
-import storybook from './storybook';
-export default storybook;
+// import storybook from './storybook';
+// export default storybook;
 
 // Comment out here to check storybook
-// const AppContainer = createAppContainer(RootStack);
+const AppContainer = createAppContainer(RootStack);
 
-// const { store, persistor } = configureStore();
-// const App = () => (
-//   <StyleProvider style={getTheme(commonColor)}>
-//     <Provider store={store}>
-//       <PersistGate loading={null} persistor={persistor}>
-//         <AppContainer />
-//       </PersistGate>
-//     </Provider>
-//   </StyleProvider>
-// );
-// export default App;
+const { store, persistor } = configureStore();
+const App = () => (
+  <StyleProvider style={getTheme(commonColor)}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <AppContainer />
+      </PersistGate>
+    </Provider>
+  </StyleProvider>
+);
+export default App;

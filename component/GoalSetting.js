@@ -32,6 +32,7 @@ class GoalSetting extends React.Component {
             <Item floatingLabel>
               <Label>目標</Label>
               <Input
+                testID="goalSetting"
                 onChangeText={(val) => {
                   this.setState({ goal: val });
                 }}
@@ -40,7 +41,12 @@ class GoalSetting extends React.Component {
             </Item>
           </Form>
         </Content>
-        <Button block style={styles.createButton} onPress={() => this.handleSet()}>
+        <Button
+          testID="setGoalButton"
+          block
+          style={styles.createButton}
+          onPress={() => this.handleSet()}
+        >
           <Text>目標の設定</Text>
         </Button>
       </Container>
