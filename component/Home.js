@@ -15,9 +15,7 @@ const styles = StyleSheet.create({
 const Home = ({ goal, habits, check }) => (
   <Container>
     {goal.text ? (
-      <H1 testID="goalText" style={styles.title}>
-        {goal.text}
-      </H1>
+      <H1 style={styles.title}>{goal.text}</H1>
     ) : (
       <H1 style={styles.title}>目標が設定されていません</H1>
     )}

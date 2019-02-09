@@ -8,11 +8,12 @@
     "eslint": "eslint \"**/*.js\"",
     "format": "prettier-eslint \"**/*.js\" --write",
     "rndebugger": "open \"rndebugger://set-debugger-loc?host=localhost&port=19001\"",
-    "e2e": "detox test"
+    "e2e": "detox test",
+    "test": "jest component"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && yarn test && yarn e2e"
     }
   },
   "lint-staged": {
@@ -68,7 +69,8 @@
     "husky": "^1.3.1",
     "jest-expo": "^32.0.0",
     "lint-staged": "^8.1.3",
-    "prettier-eslint-cli": "^4.7.1"
+    "prettier-eslint-cli": "^4.7.1",
+    "react-native-testing-library": "^1.5.0"
   },
   "private": true
 }
