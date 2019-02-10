@@ -8,7 +8,14 @@ module.exports = {
     'react/jsx-filename-extension': [0, { extensions: ['.js', '.jsx'] }],
     'import/no-extraneous-dependencies': [
       'error',
-      { devDependencies: ['**/*.test.js', '**/*.spec.js', './e2e/init.js'] },
+      {
+        devDependencies: [
+          '**/*.test.js',
+          '**/*.spec.js',
+          './e2e/init.js',
+          './storybook/stories/index.js',
+        ],
+      },
     ],
   },
 };

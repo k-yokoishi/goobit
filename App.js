@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const withScreen = WrappedComponent =>
+export const withScreen = WrappedComponent =>
   class extends React.Component {
     render() {
       return (
@@ -72,7 +72,6 @@ const RootStack = createBottomTabNavigator(
 
 // Comment out here to check storybook
 const AppContainer = createAppContainer(RootStack);
-
 const { store, persistor } = configureStore();
 const App = () => (
   <StyleProvider style={getTheme(commonColor)}>
