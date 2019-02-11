@@ -1,24 +1,27 @@
 import React from 'react';
 import {
-  Button, Container, DatePicker, Form, Text, View, Label, Item, Input,
+  Button, Container, Form, Text, View, Label, Item, Input,
 } from 'native-base';
 import PropTypes from 'prop-types';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, DatePickerIOS } from 'react-native';
+import Modal from 'react-native-modal';
 
 // to change locale in momentJS in React Native
 // https://github.com/moment/moment/issues/4422
 import moment from 'moment/min/moment-with-locales';
 
+const weekdayButtonStyle = {
+  margin: 4,
+  height: 40,
+  width: 40,
+  borderRadius: 10,
+};
+
 const styles = StyleSheet.create({
-  weekdayButton: {
-    margin: 4,
-    borderRadius: 10,
-  },
-  unselectedWeekdayButton: {
-    margin: 4,
-    borderRadius: 10,
+  weekdayButton: weekdayButtonStyle,
+  unselectedWeekdayButton: Object.assign({}, weekdayButtonStyle, {
     backgroundColor: 'lightgray',
-  },
+  }),
   createButton: {
     margin: 16,
   },
@@ -36,8 +39,9 @@ class HabitSetting extends React.Component {
       ),
       amount: null,
       unit: null,
-      begin: null,
-      end: null,
+      begin: new Date(),
+      end: new Date(),
+      openedModal: null,
     };
     moment.locale('ja');
   }
@@ -60,12 +64,40 @@ class HabitSetting extends React.Component {
       repetition,
       amount,
       unit,
-      begin: begin.toJSON(),
-      end: end.toJSON(),
+      begin: begin ? begin.toJSON() : null,
+      end: end ? end.toJSON() : null,
     });
   }
 
+  renderModal() {
+    const { openedModal, begin, end } = this.state;
+    return (
+      <View>
+        <Modal
+          isVisible={!!openedModal}
+          onBackdropPress={() => this.setState({ openedModal: null })}
+        >
+          <Form style={{ backgroundColor: 'white', borderRadius: 15 }}>
+            <DatePickerIOS
+              locale="ja"
+              date={openedModal === 'begin' ? begin : end}
+              mode="date"
+              onDateChange={date => this.setState({ [openedModal]: date })}
+            />
+            <Button
+              onPress={() => this.setState({ openedModal: null })}
+              style={{ margin: 10, marginLeft: 'auto', marginRight: 'auto' }}
+            >
+              <Text>決定</Text>
+            </Button>
+          </Form>
+        </Modal>
+      </View>
+    );
+  }
+
   render() {
+    const { begin, end } = this.state;
     return (
       <Container>
         <Form>
@@ -101,32 +133,21 @@ class HabitSetting extends React.Component {
           </Item>
           <Item inlineLabel>
             <Label>開始日</Label>
-            <DatePicker
-              locale="ja"
-              animationType="none"
-              androidMode="default"
-              placeHolderText="yyyy/mm/dd"
-              placeHolderTextStyle={{ color: '#d3d3d3' }}
-              onDateChange={begin => this.setState({ begin })}
-              supported
-            />
+            <Text onPress={() => this.setState({ openedModal: 'begin' })}>
+              {begin ? moment(begin).format('YYYY/MM/DD') : 'null'}
+            </Text>
           </Item>
           <Item inlineLabel>
             <Label>終了日</Label>
-            <DatePicker
-              locale="ja"
-              animationType="none"
-              androidMode="default"
-              placeHolderText="yyyy/mm/dd"
-              placeHolderTextStyle={{ color: '#d3d3d3' }}
-              onDateChange={end => this.setState({ end })}
-              supported
-            />
+            <Text onPress={() => this.setState({ openedModal: 'end' })}>
+              {end ? moment(end).format('YYYY/MM/DD') : 'null'}
+            </Text>
           </Item>
           <Button block onPress={() => this.handleCreateHabit()} style={styles.createButton}>
             <Text>習慣の作成</Text>
           </Button>
         </Form>
+        {this.renderModal()}
       </Container>
     );
   }
