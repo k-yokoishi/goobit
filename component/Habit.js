@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Habit = ({ habits }) => (
+const Habit = ({ habits, add }) => (
   <Container>
     {habits.length > 0 ? (
       <List>
@@ -28,7 +28,7 @@ const Habit = ({ habits }) => (
     ) : (
       <Text>習慣が設定されていません</Text>
     )}
-    <Button style={styles.addButton}>
+    <Button style={styles.addButton} onPress={() => add()}>
       <Icon name="add" />
     </Button>
   </Container>
@@ -41,6 +41,7 @@ Habit.propTypes = {
       habit: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  add: PropTypes.func.isRequired,
 };
 
 export default Habit;

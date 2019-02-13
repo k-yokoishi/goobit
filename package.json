@@ -51,7 +51,8 @@
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^5.10.0",
-    "redux-starter-kit": "^0.4.3"
+    "redux-starter-kit": "^0.4.3",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@storybook/addon-knobs": "^4.1.11",
