@@ -43,6 +43,13 @@ iOS app to make your Good Habit!
   yarn ios
   ```
 
+* (Optional) Show [Storybook](https://storybook.js.org/basics/guide-react-native) if you check the each component
+  * Can't up and run Storybook server with expo server (launched by `yarn start`) simultaneously
+
+  ```
+  yarn storybook
+  ```
+
 ### Testing
 * Unit tests (now including component tests)
 
@@ -53,6 +60,8 @@ iOS app to make your Good Habit!
 * E2E tests
 
   ```
-  yarn start # if you haven't launch server
+  yarn ios
   yarn e2e
   ```
+
+  Note: Disable `Hardware > Keyboard > Connect Hardware Keyboard` in iOS simulator setting to use simulator's keyboard in E2E test.

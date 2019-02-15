@@ -13,6 +13,7 @@ module.exports = {
           '**/*.test.js',
           '**/*.spec.js',
           './e2e/init.js',
+          './storybook/index.js',
           './storybook/stories/index.js',
         ],
       },

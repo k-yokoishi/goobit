@@ -7,9 +7,10 @@
     "eject": "expo eject",
     "eslint": "eslint \"**/*.js\"",
     "format": "prettier-eslint \"**/*.js\" --write",
+    "storybook": "expo start --config appStorybook.json",
     "rndebugger": "open \"rndebugger://set-debugger-loc?host=localhost&port=19001\"",
-    "e2e": "detox test",
-    "test": "jest component"
+    "test": "jest component",
+    "e2e": "detox test"
   },
   "husky": {
     "hooks": {
