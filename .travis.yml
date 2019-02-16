@@ -1,0 +1,13 @@
+osx_image: xcode8.3
+language: node_js
+node_js:
+  - "8"
+branches:
+  only:
+    - master
+install:
+  - yarn install
+script:
+  - yarn eslint
+  - yarn test
+
