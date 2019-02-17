@@ -33,13 +33,17 @@ const styles = StyleSheet.create({
 class HabitSetting extends React.Component {
   constructor() {
     super();
-    this.weekdayKeys = moment.weekdaysShort(); // ["Sun", "Mon", ...]
     this.state = {
       habit: null,
-      repetition: this.weekdayKeys.reduce(
-        (prev, next) => Object.assign(prev, { [next]: false }),
-        {},
-      ),
+      repetition: {
+        0: false, // sun
+        1: false, // mon
+        2: false, // tue
+        3: false, // wed
+        4: false, // thu
+        5: false, // fri
+        6: false, // sat
+      },
       amount: null,
       unit: null,
       begin: null,
@@ -50,10 +54,10 @@ class HabitSetting extends React.Component {
     moment.locale('ja');
   }
 
-  handleToggleRepetition(weekdayKey) {
+  handleToggleRepetition(weekdayNum) {
     const { repetition } = this.state;
     const updatedRepetition = Object.assign({}, repetition, {
-      [weekdayKey]: !repetition[weekdayKey],
+      [weekdayNum]: !repetition[weekdayNum],
     });
     this.setState({ repetition: updatedRepetition });
   }
@@ -89,15 +93,14 @@ class HabitSetting extends React.Component {
             <Label style={{ marginTop: 12 }}>繰り返し</Label>
             <View style={{ flexDirection: 'row' }}>
               {moment.weekdaysShort().map((weekday, index) => {
-                const weekdayKey = this.weekdayKeys[index];
                 const { repetition } = this.state;
                 return (
                   <Button
-                    key={weekdayKey}
+                    key={weekday}
                     style={
-                      repetition[weekdayKey] ? styles.weekdayButton : styles.unselectedWeekdayButton
+                      repetition[index] ? styles.weekdayButton : styles.unselectedWeekdayButton
                     }
-                    onPress={() => this.handleToggleRepetition(weekdayKey)}
+                    onPress={() => this.handleToggleRepetition(index)}
                   >
                     <Text>{weekday}</Text>
                   </Button>
