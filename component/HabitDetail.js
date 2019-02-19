@@ -85,48 +85,6 @@ class HabitDetail extends React.Component {
     );
   }
 }
-// const OldHabitDetail = ({ habit, achievements }) => {
-//   const markedStyle = {
-//     customStyles: {
-//       container: { backgroundColor: '#D32E5E' },
-//       text: { color: 'white', fontWeight: 'bold' },
-//     },
-//   };
-//   const markedDates = achievements.reduce(
-//     (p, n) => ({ [moment(n.date).format('YYYY-MM-DD')]: markedStyle, ...p }),
-//     {},
-//   );
-//   const sortedAchievements = achievements.sort((x, y) =>
-//     moment(x.date).utc() < moment(y.date).utc() ? -1 : 0,
-//   );
-//   return (
-//     <Container>
-//       <H1 style={styles.title}>{habit.habit}</H1>
-//       <CalendarList horizontal pagingEnabled markingType="custom" markedDates={markedDates} />
-//       <BarChart
-//         data={{
-//           labels: sortedAchievements.map(a => moment(a.date).format('MM/DD')),
-//           datasets: [
-//             {
-//               data: sortedAchievements.map(a => a.amount),
-//             },
-//           ],
-//         }}
-//         width={Dimensions.get('window').width}
-//         height={220}
-//         chartConfig={{
-//           backgroundColor: '#FFFFFF',
-//           backgroundGradientFrom: '#FFFFFF',
-//           backgroundGradientTo: '#FFFFFF',
-//           color: (opacity = 1) => `rgba(211, 46, 94, ${opacity})`,
-//           style: {
-//             borderRadius: 16,
-//           },
-//         }}
-//       />
-//     </Container>
-//   );
-// };
 
 HabitDetail.propTypes = {
   habit: PropTypes.shape({
