@@ -57,7 +57,7 @@ const RootStack = createBottomTabNavigator(
   {
     Home: { screen: withScreen(HomeApp) },
     Goal: { screen: withScreen(GoalSettingApp) },
-    Habit: { screen: withScreen(HabitStack) },
+    Habit: { screen: HabitStack },
     Setting: { screen: withScreen(Setting) },
   },
   {
