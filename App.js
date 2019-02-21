@@ -55,8 +55,8 @@ const HabitStack = createStackNavigator({
 
 const RootStack = createBottomTabNavigator(
   {
-    Home: { screen: withScreen(HomeApp) },
-    Goal: { screen: withScreen(GoalSettingApp) },
+    Home: { screen: HomeApp },
+    Goal: { screen: GoalSettingApp },
     Habit: { screen: HabitStack },
     Setting: { screen: withScreen(Setting) },
   },
@@ -73,6 +73,8 @@ const RootStack = createBottomTabNavigator(
 
 const AppContainer = createAppContainer(RootStack);
 const { store, persistor } = configureStore();
+// persistor.purge();  // remove comment to clear store
+
 const App = () => (
   <StyleProvider style={getTheme(commonColor)}>
     <Provider store={store}>

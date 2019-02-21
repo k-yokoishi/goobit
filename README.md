@@ -34,6 +34,8 @@ iOS app to make your Good Habit!
   yarn rndebugger
   ```
 
+  Note: please enable remote debugging in the expo app
+
 
 * Launch expo server
 
