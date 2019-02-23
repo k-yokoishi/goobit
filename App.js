@@ -13,6 +13,7 @@ import commonColor from './native-base-theme/variables/commonColor';
 import GoalSettingApp from './container/GoalSetting';
 import HabitApp from './container/Habit';
 import HabitSettingApp from './container/HabitSetting';
+import HabitDetailApp from './container/HabitDetail';
 import HomeApp from './container/Home';
 import Setting from './component/Setting';
 import configureStore from './redux/configureStore';
@@ -51,6 +52,7 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 const HabitStack = createStackNavigator({
   Habit: HabitApp,
   HabitSetting: HabitSettingApp,
+  HabitDetail: HabitDetailApp,
 });
 
 const RootStack = createBottomTabNavigator(

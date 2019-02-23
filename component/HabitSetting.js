@@ -70,7 +70,7 @@ class HabitSetting extends React.Component {
     createHabit({
       habit,
       repetition,
-      amount,
+      amount: Number(amount),
       unit,
       begin: begin ? begin.toJSON() : null,
       end: end ? end.toJSON() : null,

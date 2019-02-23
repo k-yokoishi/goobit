@@ -9,6 +9,9 @@ const HabitApp = ({ habits, navigation }) => (
     add={() => {
       navigation.navigate('HabitSetting');
     }}
+    pressItem={(habitId) => {
+      navigation.navigate('HabitDetail', { habitId });
+    }}
   />
 );
 

@@ -19,14 +19,16 @@ export const habitReducer = createReducer(initialState, {
   },
   [toggleDone]: (state, { payload }) => {
     const { id } = payload;
-    const date = moment().format('YYYY-MM-DD');
-    const index = state.achievement.findIndex(a => a.id === id && a.date === date);
+    const today = moment();
+    const index = state.achievement.findIndex(
+      a => a.id === id && moment(a.date).isSame(today, 'day'),
+    );
     if (index >= 0) {
       Object.assign(state, {
         achievement: state.achievement.filter((_, i) => i !== index),
       });
     } else {
-      state.achievement.push(Object.assign(payload, { date }));
+      state.achievement.push(Object.assign(payload, { date: today.toJSON() }));
     }
   },
 });

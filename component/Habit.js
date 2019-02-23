@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const Habit = ({ habits, add }) => (
+const Habit = ({ habits, add, pressItem }) => (
   <Container>
     {habits.length > 0 ? (
       <List>
         {habits.map(habit => (
-          <ListItem key={habit.id}>
+          <ListItem key={habit.id} onPress={() => pressItem(habit.id)}>
             <Text>{habit.habit}</Text>
           </ListItem>
         ))}
@@ -42,6 +42,7 @@ Habit.propTypes = {
     }),
   ).isRequired,
   add: PropTypes.func.isRequired,
+  pressItem: PropTypes.func.isRequired,
 };
 
 export default Habit;

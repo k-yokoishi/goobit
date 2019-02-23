@@ -9,7 +9,7 @@ const HomeApp = ({
   goal, habits, achievement, toggleDone,
 }) => {
   const weekdayNum = moment().weekday();
-  const date = moment().format('YYYY-MM-DD');
+  const today = moment();
   return (
     <Home
       goal={goal}
@@ -19,7 +19,7 @@ const HomeApp = ({
           id: habit.id,
           habit: habit.habit,
           amount: habit.amount,
-          done: !!achievement.find(a => a.id === habit.id && a.date === date),
+          done: !!achievement.find(a => a.id === habit.id && moment(a.date).isSame(today, 'day')),
         }))}
       check={habit => toggleDone(habit)}
     />
