@@ -4,7 +4,7 @@ import uuidv4 from 'uuid/v4';
 
 const initialState = {
   habits: [],
-  achievement: {},
+  achievement: [],
 };
 
 export const initialize = createAction('habit/initialize');
@@ -20,15 +20,13 @@ export const habitReducer = createReducer(initialState, {
   [toggleDone]: (state, { payload }) => {
     const { id } = payload;
     const date = moment().format('YYYY-MM-DD');
-    if (!state.achievement[date]) {
-      Object.assign(state.achievement, { [date]: {} });
-    }
-
-    if (id in state.achievement[date]) {
-      // eslint-disable-next-line no-param-reassign
-      delete state.achievement[date][id];
+    const index = state.achievement.findIndex(a => a.id === id && a.date === date);
+    if (index >= 0) {
+      Object.assign(state, {
+        achievement: state.achievement.filter((_, i) => i !== index),
+      });
     } else {
-      Object.assign(state.achievement[date], { [id]: payload });
+      state.achievement.push(Object.assign(payload, { date }));
     }
   },
 });

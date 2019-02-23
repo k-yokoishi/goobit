@@ -19,7 +19,7 @@ const HomeApp = ({
           id: habit.id,
           habit: habit.habit,
           amount: habit.amount,
-          done: !!(achievement[date] && achievement[date][habit.id]),
+          done: !!achievement.find(a => a.id === habit.id && a.date === date),
         }))}
       check={habit => toggleDone(habit)}
     />
@@ -37,12 +37,11 @@ HomeApp.propTypes = {
       repetition: PropTypes.objectOf(PropTypes.bool).isRequired,
     }),
   ).isRequired,
-  achievement: PropTypes.objectOf(
-    PropTypes.objectOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-      }),
-    ),
+  achievement: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+    }),
   ).isRequired,
   toggleDone: PropTypes.func.isRequired,
 };

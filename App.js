@@ -73,7 +73,7 @@ const RootStack = createBottomTabNavigator(
 
 const AppContainer = createAppContainer(RootStack);
 const { store, persistor } = configureStore();
-// persistor.purge();  // remove comment to clear store
+// persistor.purge(); // remove comment to clear store
 
 const App = () => (
   <StyleProvider style={getTheme(commonColor)}>
