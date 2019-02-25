@@ -80,6 +80,7 @@ class HabitDetail extends React.Component {
               borderRadius: 16,
             },
           }}
+          yAxis={{ yAxis: { left: { axisMinimum: 0 } } }}
         />
       </Container>
     );

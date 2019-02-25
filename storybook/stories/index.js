@@ -63,52 +63,61 @@ habitStories
   .add('does not have habit', () => <Habit habits={[]} add={action('check')} />);
 
 const habitDetail = storiesOf('Habit Detail', module);
-habitDetail.add('Habit detail initial page', () => (
-  <HabitDetail
-    habit={{
-      habit: '腹筋を100回やる',
-    }}
-    achievements={[
-      { date: moment().toJSON(), amount: 100 },
-      {
-        date: moment()
-          .day(1)
-          .toJSON(),
-        amount: 100,
-      },
-      {
-        date: moment()
-          .day(2)
-          .toJSON(),
-        amount: 50,
-      },
-      {
-        date: moment()
-          .day(7)
-          .toJSON(),
-        amount: 100,
-      },
-      {
-        date: moment()
-          .day(8)
-          .toJSON(),
-        amount: 100,
-      },
-      {
-        date: moment()
-          .day(9)
-          .toJSON(),
-        amount: 100,
-      },
-      {
-        date: moment()
-          .add(-1, 'month')
-          .toJSON(),
-        amount: 100,
-      },
-    ]}
-  />
-));
+habitDetail
+  .add('Habit detail w/o achievement', () => (
+    <HabitDetail
+      habit={{
+        habit: '腹筋を100回やる',
+      }}
+      achievements={[]}
+    />
+  ))
+  .add('Habit detail initial page', () => (
+    <HabitDetail
+      habit={{
+        habit: '腹筋を100回やる',
+      }}
+      achievements={[
+        { date: moment().toJSON(), amount: 100 },
+        {
+          date: moment()
+            .day(1)
+            .toJSON(),
+          amount: 100,
+        },
+        {
+          date: moment()
+            .day(2)
+            .toJSON(),
+          amount: 50,
+        },
+        {
+          date: moment()
+            .day(7)
+            .toJSON(),
+          amount: 100,
+        },
+        {
+          date: moment()
+            .day(8)
+            .toJSON(),
+          amount: 100,
+        },
+        {
+          date: moment()
+            .day(9)
+            .toJSON(),
+          amount: 100,
+        },
+        {
+          date: moment()
+            .add(-1, 'month')
+            .toJSON(),
+          amount: 100,
+        },
+      ]}
+    />
+  ));
 
 const habitSettings = storiesOf('Habit Settings', module);
 habitSettings.add(

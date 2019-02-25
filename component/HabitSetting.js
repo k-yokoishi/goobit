@@ -1,32 +1,29 @@
 import React from 'react';
 import {
-  Button, Container, Form, Text, View, Label, Item, Input,
+  Button, Container, Form, Text, View, Label, Item, Input, Switch,
 } from 'native-base';
 import PropTypes from 'prop-types';
-import { StyleSheet } from 'react-native';
+import { DatePickerIOS, StyleSheet } from 'react-native';
 // to change locale in momentJS in React Native
 // https://github.com/moment/moment/issues/4422
 import moment from 'moment/min/moment-with-locales';
-import DatePickerModal from './DatePickerModal';
-
-const weekdayButtonStyle = {
-  margin: 4,
-  height: 40,
-  width: 40,
-  borderRadius: 10,
-};
 
 const styles = StyleSheet.create({
-  weekdayButton: weekdayButtonStyle,
-  unselectedWeekdayButton: Object.assign({}, weekdayButtonStyle, {
+  weekdayButton: {
+    margin: 4,
+    height: 40,
+    width: 40,
+    borderRadius: 10,
+  },
+  unselectedWeekdayButton: {
+    margin: 4,
+    height: 40,
+    width: 40,
+    borderRadius: 10,
     backgroundColor: 'lightgray',
-  }),
+  },
   createButton: {
     margin: 16,
-  },
-  inputForm: {
-    marginTop: 16,
-    marginBottom: 16,
   },
 });
 
@@ -46,10 +43,8 @@ class HabitSetting extends React.Component {
       },
       amount: null,
       unit: null,
-      begin: null,
-      end: null,
-      reminder: null,
-      openedModal: null,
+      reminder: false,
+      remindAt: new Date(),
     };
     moment.locale('ja');
   }
@@ -65,23 +60,19 @@ class HabitSetting extends React.Component {
   handleCreateHabit() {
     const { createHabit } = this.props;
     const {
-      habit, repetition, amount, unit, begin, end, reminder,
+      habit, repetition, amount, unit, reminder, remindAt,
     } = this.state;
     createHabit({
       habit,
       repetition,
       amount: Number(amount),
       unit,
-      begin: begin ? begin.toJSON() : null,
-      end: end ? end.toJSON() : null,
-      reminder,
+      remindAt: reminder ? remindAt.toJSON() : null,
     });
   }
 
   render() {
-    const {
-      openedModal, begin, end, reminder,
-    } = this.state;
+    const { reminder, remindAt } = this.state;
     return (
       <Container>
         <Form>
@@ -116,42 +107,36 @@ class HabitSetting extends React.Component {
             <Label>単位</Label>
             <Input onChangeText={unit => this.setState({ unit })} />
           </Item>
-          <Item inlineLabel>
-            <Label>開始日</Label>
-            <Text onPress={() => this.setState({ openedModal: 'begin' })} style={styles.inputForm}>
-              {begin ? moment(begin).format('YYYY/MM/DD') : 'yyyy/mm/dd'}
-            </Text>
-          </Item>
-          <Item inlineLabel>
-            <Label>終了日</Label>
-            <Text onPress={() => this.setState({ openedModal: 'end' })} style={styles.inputForm}>
-              {end ? moment(end).format('YYYY/MM/DD') : 'yyyy/mm/dd'}
-            </Text>
-          </Item>
-          <Item inlineLabel>
-            <Label>リマインダー</Label>
-            <Text
-              onPress={() => this.setState({ openedModal: 'reminder' })}
-              style={styles.inputForm}
+          <Item>
+            <Label style={{ marginTop: 16, marginBottom: 'auto' }}>リマインダー</Label>
+            <View
+              style={{
+                width: 200,
+                marginTop: 16,
+                marginBottom: 16,
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}
             >
-              {reminder ? moment(reminder).format('HH:mm') : 'hh:mm'}
-            </Text>
+              <Switch
+                value={reminder}
+                onTouchEnd={() => this.setState({ reminder: !reminder })}
+                style={{ marginLeft: 'auto' }}
+              />
+              {reminder && (
+                <DatePickerIOS
+                  mode="time"
+                  date={remindAt}
+                  locale="ja"
+                  onDateChange={date => this.setState({ remindAt: date })}
+                />
+              )}
+            </View>
           </Item>
           <Button block onPress={() => this.handleCreateHabit()} style={styles.createButton}>
             <Text>習慣の作成</Text>
           </Button>
         </Form>
-        <DatePickerModal
-          isVisible={!!openedModal}
-          locale="ja"
-          // eslint-disable-next-line react/destructuring-assignment
-          date={this.state[openedModal] || new Date()}
-          minimumDate={openedModal === 'reminder' ? null : new Date()}
-          mode={openedModal === 'reminder' ? 'time' : 'date'}
-          onBackdropPress={() => this.setState({ openedModal: null })}
-          onDateChange={date => this.setState({ [openedModal]: date })}
-          onDecide={() => this.setState({ openedModal: null })}
-        />
       </Container>
     );
   }
