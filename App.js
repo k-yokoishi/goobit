@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Container, Icon, StyleProvider } from 'native-base';
+import {
+  Container, Icon, StyleProvider, Text,
+} from 'native-base';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {
@@ -16,6 +18,7 @@ import HabitSettingApp from './container/HabitSetting';
 import HabitDetailApp from './container/HabitDetail';
 import HomeApp from './container/Home';
 import Setting from './component/Setting';
+import { toggleEditable } from './redux/habit';
 import configureStore from './redux/configureStore';
 
 const styles = StyleSheet.create({
@@ -26,6 +29,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 64,
   },
+  headerButton: {
+    marginLeft: 16,
+    marginRight: 16,
+  },
 });
 
 export const withScreen = WrappedComponent => () => (
@@ -33,6 +40,8 @@ export const withScreen = WrappedComponent => () => (
     <WrappedComponent />
   </Container>
 );
+
+const { store, persistor } = configureStore();
 
 const getTabBarIcon = (navigation, focused, tintColor) => {
   const { routeName } = navigation.state;
@@ -50,7 +59,23 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 };
 
 const HabitStack = createStackNavigator({
-  Habit: HabitApp,
+  Habit: {
+    screen: HabitApp,
+    navigationOptions: ({ navigation }) => ({
+      headerLeft: (
+        <Text style={styles.headerButton} onPress={() => store.dispatch(toggleEditable())}>
+          編集
+        </Text>
+      ),
+      headerRight: (
+        <Icon
+          style={styles.headerButton}
+          name="add"
+          onPress={() => navigation.navigate('HabitSetting')}
+        />
+      ),
+    }),
+  },
   HabitSetting: HabitSettingApp,
   HabitDetail: HabitDetailApp,
 });
@@ -58,7 +83,7 @@ const HabitStack = createStackNavigator({
 const RootStack = createBottomTabNavigator(
   {
     Home: { screen: HomeApp },
-    Goal: { screen: GoalSettingApp },
+    Goal: { screen: createStackNavigator({ GoalSettingApp }) },
     Habit: { screen: HabitStack },
     Setting: { screen: withScreen(Setting) },
   },
@@ -74,7 +99,6 @@ const RootStack = createBottomTabNavigator(
 );
 
 const AppContainer = createAppContainer(RootStack);
-const { store, persistor } = configureStore();
 // persistor.purge(); // remove comment to clear store
 
 const App = () => (

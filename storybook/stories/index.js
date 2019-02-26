@@ -55,12 +55,27 @@ habitStories
           { id: 'gz0bea', habit: '腹筋を100回やる' },
           { id: 'pob5kz', habit: 'スクワットを100回やる' },
         ]}
-        add={action('check')}
+        remove={action('remove')}
+        pressItem={action('pressItem')}
       />
     ),
     { notes: 'Goal setting initial page' },
   )
-  .add('does not have habit', () => <Habit habits={[]} add={action('check')} />);
+  .add('Goal setting is editable', () => (
+    <Habit
+      habits={[
+        { id: '1b8rja', habit: '腹筋を100回やる' },
+        { id: 'gz0bea', habit: '腹筋を100回やる' },
+        { id: 'pob5kz', habit: 'スクワットを100回やる' },
+      ]}
+      editable
+      remove={action('remove')}
+      pressItem={action('pressItem')}
+    />
+  ))
+  .add('does not have habit', () => (
+    <Habit habits={[]} remove={action('remove')} pressItem={action('pressItem')} />
+  ));
 
 const habitDetail = storiesOf('Habit Detail', module);
 habitDetail

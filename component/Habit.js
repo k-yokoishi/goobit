@@ -1,26 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Container, Icon, List, ListItem, Text,
+  Container, Icon, List, ListItem, Text,
 } from 'native-base';
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  addButton: {
-    borderRadius: 35,
-    marginTop: 'auto',
-    marginLeft: 'auto',
+  removeIcon: {
     marginRight: 16,
-    marginBottom: 16,
+    color: 'red',
+    fontSize: 24,
+  },
+  listItem: {
+    height: 48,
   },
 });
-
-const Habit = ({ habits, add, pressItem }) => (
+const Habit = ({
+  habits, editable, remove, pressItem,
+}) => (
   <Container>
     {habits.length > 0 ? (
       <List>
         {habits.map(habit => (
-          <ListItem key={habit.id} onPress={() => pressItem(habit.id)}>
+          <ListItem key={habit.id} onPress={() => pressItem(habit.id)} style={styles.listItem}>
+            {editable && (
+              <Icon
+                name="remove-circle"
+                onPress={() => {
+                  Alert.alert(
+                    '習慣を削除します',
+                    '一度削除した習慣は元に戻せませんがよろしいですか？',
+                    [
+                      { text: 'キャンセル', style: 'cancel' },
+                      { text: '削除', onPress: () => remove(habit.id) },
+                    ],
+                  );
+                }}
+                style={styles.removeIcon}
+              />
+            )}
             <Text>{habit.habit}</Text>
           </ListItem>
         ))}
@@ -28,11 +46,12 @@ const Habit = ({ habits, add, pressItem }) => (
     ) : (
       <Text>習慣が設定されていません</Text>
     )}
-    <Button style={styles.addButton} onPress={() => add()}>
-      <Icon name="add" />
-    </Button>
   </Container>
 );
+
+Habit.defaultProps = {
+  editable: false,
+};
 
 Habit.propTypes = {
   habits: PropTypes.arrayOf(
@@ -41,7 +60,8 @@ Habit.propTypes = {
       habit: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  add: PropTypes.func.isRequired,
+  editable: PropTypes.bool,
+  remove: PropTypes.func.isRequired,
   pressItem: PropTypes.func.isRequired,
 };
 

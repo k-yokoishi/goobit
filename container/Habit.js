@@ -2,21 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Habit from '../component/Habit';
+import { remove as removeAction } from '../redux/habit';
 
-const HabitApp = ({ habits, navigation }) => (
+const HabitApp = ({
+  habits, editable, remove, navigation,
+}) => (
   <Habit
     habits={habits}
-    add={() => {
-      navigation.navigate('HabitSetting');
-    }}
     pressItem={(habitId) => {
       navigation.navigate('HabitDetail', { habitId });
     }}
+    remove={remove}
+    editable={editable}
   />
 );
 
 const mapStateToProps = state => ({
   habits: state.habit.habits,
+  editable: state.habit.editable,
+});
+
+const mapDispatchToProps = dispatch => ({
+  remove: id => dispatch(removeAction(id)),
 });
 
 HabitApp.propTypes = {
@@ -26,9 +33,14 @@ HabitApp.propTypes = {
       habit: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  editable: PropTypes.bool.isRequired,
+  remove: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default connect(mapStateToProps)(HabitApp);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HabitApp);

@@ -6,7 +6,10 @@ import HabitDetail from '../component/HabitDetail';
 const HabitDetailApp = ({ achievements, habits, navigation }) => {
   const habitId = navigation.getParam('habitId');
   return (
-    <HabitDetail habit={habits.find(habit => habit.id === habitId)} achievements={achievements} />
+    <HabitDetail
+      habit={habits.find(habit => habit.id === habitId)}
+      achievements={achievements.filter(a => a.id === habitId)}
+    />
   );
 };
 
