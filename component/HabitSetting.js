@@ -120,7 +120,9 @@ class HabitSetting extends React.Component {
             >
               <Switch
                 value={reminder}
-                onTouchEnd={() => this.setState({ reminder: !reminder })}
+                onValueChange={(value) => {
+                  this.setState({ reminder: value });
+                }}
                 style={{ marginLeft: 'auto' }}
               />
               {reminder && (

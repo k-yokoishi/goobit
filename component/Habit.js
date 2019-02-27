@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Icon, List, ListItem, Text,
+  Container, Icon, Left, List, ListItem, Right, Switch, Text,
 } from 'native-base';
 import { Alert, StyleSheet } from 'react-native';
 
@@ -16,30 +16,35 @@ const styles = StyleSheet.create({
   },
 });
 const Habit = ({
-  habits, editable, remove, pressItem,
+  habits, editable, remove, pressItem, toggleEnable,
 }) => (
   <Container>
     {habits.length > 0 ? (
       <List>
         {habits.map(habit => (
           <ListItem key={habit.id} onPress={() => pressItem(habit.id)} style={styles.listItem}>
-            {editable && (
-              <Icon
-                name="remove-circle"
-                onPress={() => {
-                  Alert.alert(
-                    '習慣を削除します',
-                    '一度削除した習慣は元に戻せませんがよろしいですか？',
-                    [
-                      { text: 'キャンセル', style: 'cancel' },
-                      { text: '削除', onPress: () => remove(habit.id) },
-                    ],
-                  );
-                }}
-                style={styles.removeIcon}
-              />
-            )}
-            <Text>{habit.habit}</Text>
+            <Left>
+              {editable && (
+                <Icon
+                  name="remove-circle"
+                  onPress={() => {
+                    Alert.alert(
+                      '習慣を削除します',
+                      '一度削除した習慣は元に戻せませんがよろしいですか？',
+                      [
+                        { text: 'キャンセル', style: 'cancel' },
+                        { text: '削除', onPress: () => remove(habit.id) },
+                      ],
+                    );
+                  }}
+                  style={styles.removeIcon}
+                />
+              )}
+              <Text>{habit.habit}</Text>
+            </Left>
+            <Right>
+              <Switch value={habit.enabled} onValueChange={() => toggleEnable(habit.id)} />
+            </Right>
           </ListItem>
         ))}
       </List>
@@ -58,11 +63,13 @@ Habit.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       habit: PropTypes.string.isRequired,
+      enabled: PropTypes.bool.isRequired,
     }),
   ).isRequired,
   editable: PropTypes.bool,
   remove: PropTypes.func.isRequired,
   pressItem: PropTypes.func.isRequired,
+  toggleEnable: PropTypes.func.isRequired,
 };
 
 export default Habit;

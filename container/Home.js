@@ -19,6 +19,8 @@ const HomeApp = ({
           id: habit.id,
           habit: habit.habit,
           amount: habit.amount,
+          unit: habit.unit,
+          enabled: habit.enabled,
           done: !!achievement.find(a => a.id === habit.id && moment(a.date).isSame(today, 'day')),
         }))}
       check={habit => toggleDone(habit)}
