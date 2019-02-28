@@ -43,7 +43,11 @@ const Habit = ({
               <Text>{habit.habit}</Text>
             </Left>
             <Right>
-              <Switch value={habit.enabled} onValueChange={() => toggleEnable(habit.id)} />
+              {editable ? (
+                <Icon name="arrow-forward" />
+              ) : (
+                <Switch value={habit.enabled} onValueChange={() => toggleEnable(habit.id)} />
+              )}
             </Right>
           </ListItem>
         ))}

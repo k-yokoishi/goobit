@@ -15,6 +15,7 @@ import commonColor from './native-base-theme/variables/commonColor';
 import GoalSettingApp from './container/GoalSetting';
 import HabitApp from './container/Habit';
 import HabitSettingApp from './container/HabitSetting';
+import HabitUpdateApp from './container/HabitUpdate';
 import HabitDetailApp from './container/HabitDetail';
 import HomeApp from './container/Home';
 import Setting from './component/Setting';
@@ -77,6 +78,7 @@ const HabitStack = createStackNavigator({
     }),
   },
   HabitSetting: HabitSettingApp,
+  HabitUpdate: HabitUpdateApp,
   HabitDetail: HabitDetailApp,
 });
 

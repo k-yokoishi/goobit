@@ -10,6 +10,7 @@ const initialState = {
 
 export const initialize = createAction('habit/initialize');
 export const add = createAction('habit/add');
+export const update = createAction('habit/update');
 export const remove = createAction('habit/remove');
 export const toggleDone = createAction('habit/toggleDone');
 export const toggleEditable = createAction('habit/toggleEditable');
@@ -20,6 +21,10 @@ export const habitReducer = createReducer(initialState, {
   [add]: (state, { payload }) => {
     const habitWithKey = Object.assign({}, payload, { id: uuidv4(), enabled: true });
     state.habits.push(habitWithKey);
+  },
+  [update]: (state, { payload }) => {
+    const { id } = payload;
+    Object.assign(state, { habits: state.habits.map(h => (h.id === id ? payload : h)) });
   },
   [remove]: (state, { payload }) => {
     const habits = state.habits.filter(h => h.id !== payload);

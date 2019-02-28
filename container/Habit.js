@@ -12,7 +12,7 @@ const HabitApp = ({
     editable={editable}
     remove={remove}
     pressItem={(habitId) => {
-      navigation.navigate('HabitDetail', { habitId });
+      navigation.navigate(editable ? 'HabitUpdate' : 'HabitDetail', { habitId });
     }}
     toggleEnable={habitId => toggleEnable(habitId)}
   />

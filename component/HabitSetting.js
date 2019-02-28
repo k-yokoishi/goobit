@@ -28,23 +28,18 @@ const styles = StyleSheet.create({
 });
 
 class HabitSetting extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const {
+      habit, repetition, amount, unit, reminder, remindAt,
+    } = props;
     this.state = {
-      habit: null,
-      repetition: {
-        0: false, // sun
-        1: false, // mon
-        2: false, // tue
-        3: false, // wed
-        4: false, // thu
-        5: false, // fri
-        6: false, // sat
-      },
-      amount: null,
-      unit: null,
-      reminder: false,
-      remindAt: new Date(),
+      habit,
+      repetition,
+      amount,
+      unit,
+      reminder,
+      remindAt,
     };
     moment.locale('ja');
   }
@@ -72,13 +67,15 @@ class HabitSetting extends React.Component {
   }
 
   render() {
-    const { reminder, remindAt } = this.state;
+    const {
+      habit, amount, unit, reminder, remindAt,
+    } = this.state;
     return (
       <Container>
         <Form>
           <Item inlineLabel>
             <Label>習慣</Label>
-            <Input onChangeText={habit => this.setState({ habit })} />
+            <Input value={habit} onChangeText={v => this.setState({ habit: v })} />
           </Item>
           <Item style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
             <Label style={{ marginTop: 12 }}>繰り返し</Label>
@@ -101,11 +98,15 @@ class HabitSetting extends React.Component {
           </Item>
           <Item inlineLabel>
             <Label>量</Label>
-            <Input keyboardType="numeric" onChangeText={amount => this.setState({ amount })} />
+            <Input
+              value={amount}
+              keyboardType="numeric"
+              onChangeText={v => this.setState({ amount: v })}
+            />
           </Item>
           <Item inlineLabel>
             <Label>単位</Label>
-            <Input onChangeText={unit => this.setState({ unit })} />
+            <Input value={unit} onChangeText={v => this.setState({ unit: v })} />
           </Item>
           <Item>
             <Label style={{ marginTop: 16, marginBottom: 'auto' }}>リマインダー</Label>
@@ -144,7 +145,30 @@ class HabitSetting extends React.Component {
   }
 }
 
+HabitSetting.defaultProps = {
+  habit: null,
+  repetition: {
+    0: false, // sun
+    1: false, // mon
+    2: false, // tue
+    3: false, // wed
+    4: false, // thu
+    5: false, // fri
+    6: false, // sat
+  },
+  amount: null,
+  unit: null,
+  reminder: false,
+  remindAt: new Date(),
+};
+
 HabitSetting.propTypes = {
+  habit: PropTypes.string,
+  repetition: PropTypes.objectOf(PropTypes.bool),
+  amount: PropTypes.string,
+  unit: PropTypes.string,
+  reminder: PropTypes.bool,
+  remindAt: PropTypes.instanceOf(Date),
   createHabit: PropTypes.func.isRequired,
 };
 
