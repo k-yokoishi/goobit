@@ -7,6 +7,7 @@ import { DatePickerIOS, StyleSheet } from 'react-native';
 // to change locale in momentJS in React Native
 // https://github.com/moment/moment/issues/4422
 import moment from 'moment/min/moment-with-locales';
+import uuidv4 from 'uuid/v4';
 
 const styles = StyleSheet.create({
   weekdayButton: {
@@ -62,7 +63,13 @@ class HabitSetting extends React.Component {
       repetition,
       amount: Number(amount),
       unit,
-      remindAt: reminder ? remindAt.toJSON() : null,
+      remindAt: reminder
+        ? moment(remindAt)
+          .seconds(0)
+          .milliseconds(0)
+          .toJSON()
+        : null,
+      id: uuidv4(),
     });
   }
 

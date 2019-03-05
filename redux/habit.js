@@ -1,6 +1,5 @@
 import { createAction, createReducer } from 'redux-starter-kit';
 import moment from 'moment';
-import uuidv4 from 'uuid/v4';
 
 const initialState = {
   habits: [],
@@ -19,8 +18,7 @@ export const toggleEnable = createAction('habit/toggleEnable');
 export const habitReducer = createReducer(initialState, {
   [initialize]: () => initialState,
   [add]: (state, { payload }) => {
-    const habitWithKey = Object.assign({}, payload, { id: uuidv4(), enabled: true });
-    state.habits.push(habitWithKey);
+    state.habits.push({ enabled: true, ...payload });
   },
   [update]: (state, { payload }) => {
     const { id } = payload;
