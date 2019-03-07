@@ -7,10 +7,7 @@ import { BarChart } from 'react-native-chart-kit';
 import moment from 'moment';
 
 const styles = StyleSheet.create({
-  title: {
-    textAlign: 'center',
-    margin: 8,
-  },
+  title: { textAlign: 'center' },
 });
 
 class HabitDetail extends React.Component {

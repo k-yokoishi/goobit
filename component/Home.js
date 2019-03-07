@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Body, Container, Header, H1, H2, Icon, Left, ListItem, Text,
+  Body, Container, Header, H1, H2, Icon, Left, ListItem, Right, Text,
 } from 'native-base';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Swipeable from 'react-native-swipeable';
 
 const styles = StyleSheet.create({
@@ -13,9 +13,6 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     margin: 8,
-  },
-  listItem: {
-    height: 50,
   },
   leftSwipeItem: {
     flex: 1,
@@ -30,7 +27,7 @@ const Home = ({ goal, habits, check }) => (
     <Header />
     <H1 style={styles.title}>{goal.text || '目標が設定されていません'}</H1>
     <H2 style={styles.subTitle}>今日やること</H2>
-    <ScrollView>
+    <View>
       {habits
         .filter(habit => habit.enabled)
         .map(habit => (
@@ -47,12 +44,12 @@ const Home = ({ goal, habits, check }) => (
               >
                 <Icon
                   name={habit.done ? 'close' : 'checkmark'}
-                  style={{ color: 'white', fontSize: 40 }}
+                  style={{ color: 'white', fontSize: 38 }}
                 />
               </View>
 )}
           >
-            <ListItem style={styles.listItem} icon>
+            <ListItem icon>
               <Left>
                 <Icon
                   name={habit.done ? 'checkmark-circle' : 'radio-button-off'}
@@ -62,10 +59,13 @@ const Home = ({ goal, habits, check }) => (
               <Body>
                 <Text>{habit.habit}</Text>
               </Body>
+              <Right>
+                <Text>{`${habit.amount}${habit.unit || ''}`}</Text>
+              </Right>
             </ListItem>
           </Swipeable>
         ))}
-    </ScrollView>
+    </View>
   </Container>
 );
 
@@ -77,6 +77,8 @@ Home.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       habit: PropTypes.string.isRequired,
+      amount: PropTypes.number.isRequired,
+      unit: PropTypes.string,
       done: PropTypes.bool.isRequired,
       enabled: PropTypes.bool.isRequired,
     }),

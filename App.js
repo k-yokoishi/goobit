@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import {
-  Container, Icon, StyleProvider, Text,
+  Button, Container, Icon, StyleProvider, Text,
 } from 'native-base';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -64,16 +64,14 @@ const HabitStack = createStackNavigator({
     screen: HabitApp,
     navigationOptions: ({ navigation }) => ({
       headerLeft: (
-        <Text style={styles.headerButton} onPress={() => store.dispatch(toggleEditable())}>
-          編集
-        </Text>
+        <Button transparent hasText onPress={() => store.dispatch(toggleEditable())}>
+          <Text style={{ color: 'black' }}>編集</Text>
+        </Button>
       ),
       headerRight: (
-        <Icon
-          style={styles.headerButton}
-          name="add"
-          onPress={() => navigation.navigate('HabitSetting')}
-        />
+        <Button transparent onPress={() => navigation.navigate('HabitSetting')}>
+          <Icon name="add" style={{ color: 'black', fontSize: 24 }} />
+        </Button>
       ),
     }),
   },
