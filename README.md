@@ -45,6 +45,9 @@ iOS app to make your Good Habit!
   yarn ios
   ```
 
+  Note: Run `open -a Simulator` before yarn start if XCode is 10.2
+  to avoid issue https://github.com/facebook/react-native/issues/23878
+
 * (Optional) Show [Storybook](https://storybook.js.org/basics/guide-react-native) if you check the each component
   * Can't up and run Storybook server with expo server (launched by `yarn start`) simultaneously
 
@@ -60,6 +63,8 @@ iOS app to make your Good Habit!
   ```
 
 * E2E tests
+
+  **Currently E2E tests don't work due to issue https://github.com/facebook/react-native/issues/23878**
 
   ```
   yarn ios
