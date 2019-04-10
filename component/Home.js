@@ -4,6 +4,7 @@ import {
   Body, Container, Header, H1, H2, Icon, Left, ListItem, Right, Text,
 } from 'native-base';
 import { StyleSheet, View } from 'react-native';
+import { AdMobBanner } from 'expo';
 import Swipeable from 'react-native-swipeable';
 
 const styles = StyleSheet.create({
@@ -19,6 +20,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     paddingRight: 20,
+  },
+  banner: {
+    marginTop: 'auto',
   },
 });
 
@@ -65,6 +69,13 @@ const Home = ({ goal, habits, check }) => (
             </ListItem>
           </Swipeable>
         ))}
+    </View>
+    <View style={styles.banner}>
+      <AdMobBanner
+        bannerSize="fullBanner"
+        adUnitID="ca-app-pub-7679937651802474/9146136515"
+        testDeviceID="EMULATOR"
+      />
     </View>
   </Container>
 );
