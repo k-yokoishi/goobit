@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Body, Container, Header, H1, H2, Icon, Left, ListItem, Right, Text,
+  Body, CheckBox, Container, Header, H1, H2, ListItem, Right, Text,
 } from 'native-base';
 import { StyleSheet, View } from 'react-native';
 import { AdMobBanner } from 'expo';
-import Swipeable from 'react-native-swipeable';
 
 const styles = StyleSheet.create({
   title: {
@@ -35,39 +34,15 @@ const Home = ({ goal, habits, check }) => (
       {habits
         .filter(habit => habit.enabled)
         .map(habit => (
-          <Swipeable
-            key={habit.id}
-            leftActionActivationDistance={80}
-            onLeftActionActivate={() => check(habit)}
-            leftContent={(
-              <View
-                style={[
-                  styles.leftSwipeItem,
-                  { backgroundColor: habit.done ? 'lightgray' : '#D32E5E' },
-                ]}
-              >
-                <Icon
-                  name={habit.done ? 'close' : 'checkmark'}
-                  style={{ color: 'white', fontSize: 38 }}
-                />
-              </View>
-)}
-          >
-            <ListItem icon>
-              <Left>
-                <Icon
-                  name={habit.done ? 'checkmark-circle' : 'radio-button-off'}
-                  style={{ color: '#D32E5E', marginRight: 3 }}
-                />
-              </Left>
-              <Body>
-                <Text>{habit.habit}</Text>
-              </Body>
-              <Right>
-                <Text>{`${habit.amount}${habit.unit || ''}`}</Text>
-              </Right>
-            </ListItem>
-          </Swipeable>
+          <ListItem key={habit.id}>
+            <CheckBox checked={habit.done} onPress={() => check(habit)} color="#D32E5E" />
+            <Body>
+              <Text>{habit.habit}</Text>
+            </Body>
+            <Right>
+              <Text>{`${habit.amount}${habit.unit || ''}`}</Text>
+            </Right>
+          </ListItem>
         ))}
     </View>
     <View style={styles.banner}>
