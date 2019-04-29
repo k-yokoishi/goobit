@@ -78,6 +78,7 @@ class HabitDetail extends React.Component {
             },
           }}
           yAxis={{ yAxis: { left: { axisMinimum: 0 } } }}
+          fromZero
         />
       </Container>
     );
