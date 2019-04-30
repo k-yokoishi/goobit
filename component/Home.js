@@ -4,7 +4,9 @@ import {
   Body, CheckBox, Container, Header, H1, H3, ListItem, Right, Text,
 } from 'native-base';
 import { StyleSheet, View } from 'react-native';
+import SvgUri from 'react-native-svg-uri';
 import { AdMobBanner } from 'expo';
+import SunBed from '../assets/sunbed.svg';
 
 const styles = StyleSheet.create({
   title: {
@@ -24,6 +26,10 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
     alignItems: 'center',
+  },
+  image: {
+    marginTop: 24,
+    marginBottom: 24,
   },
 });
 
@@ -50,6 +56,7 @@ const Home = ({ goal, habits, check }) => {
     return (
       <View style={styles.message}>
         <H3>実行する習慣はありません</H3>
+        <SvgUri width="180" height="180" source={SunBed} style={styles.image} />
       </View>
     );
   };

@@ -4,6 +4,8 @@ import {
   Container, H3, Icon, Left, List, ListItem, Right, Switch, Text, View,
 } from 'native-base';
 import { Alert, StyleSheet } from 'react-native';
+import SvgUri from 'react-native-svg-uri';
+import Desk from '../assets/desk.svg';
 
 const styles = StyleSheet.create({
   removeIcon: {
@@ -22,6 +24,10 @@ const styles = StyleSheet.create({
   hint: {
     margin: 16,
     color: 'gray',
+  },
+  image: {
+    marginTop: 24,
+    marginBottom: 24,
   },
 });
 const Habit = ({
@@ -65,6 +71,7 @@ const Habit = ({
       <View style={styles.message}>
         <H3>習慣が設定されていません</H3>
         <Text style={styles.hint}>「＋」をタップして習慣を作成しましょう。</Text>
+        <SvgUri width="180" height="180" source={Desk} style={styles.image} />
       </View>
     )}
   </Container>
