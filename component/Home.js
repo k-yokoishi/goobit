@@ -1,7 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Body, CheckBox, Container, Header, H1, H3, ListItem, Right, Text,
+  Body,
+  Button,
+  CheckBox,
+  Container,
+  Header,
+  H1,
+  H3,
+  ListItem,
+  Right,
+  Text,
 } from 'native-base';
 import { StyleSheet, View } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
@@ -13,12 +22,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 8,
   },
-  leftSwipeItem: {
-    flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    paddingRight: 20,
-  },
   banner: {
     marginTop: 'auto',
   },
@@ -28,12 +31,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    marginTop: 24,
-    marginBottom: 24,
+    margin: 24,
+  },
+  addHabitButton: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 });
 
-const Home = ({ goal, habits, check }) => {
+const Home = ({
+  goal, habits, check, addHabit,
+}) => {
   const renderHabits = () => {
     const rendered = habits.filter(habit => habit.enabled);
     if (rendered.length) {
@@ -57,6 +65,9 @@ const Home = ({ goal, habits, check }) => {
       <View style={styles.message}>
         <H3>実行する習慣はありません</H3>
         <SvgUri width="180" height="180" source={SunBed} style={styles.image} />
+        <Button small rounded style={styles.addHabitButton} onPress={addHabit}>
+          <Text>新しい習慣を作成する</Text>
+        </Button>
       </View>
     );
   };
@@ -92,6 +103,7 @@ Home.propTypes = {
     }),
   ).isRequired,
   check: PropTypes.func.isRequired,
+  addHabit: PropTypes.func.isRequired,
 };
 
 export default Home;

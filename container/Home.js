@@ -6,7 +6,7 @@ import Home from '../component/Home';
 import { toggleDone as toggleDoneAction } from '../redux/habit';
 
 const HomeApp = ({
-  goal, habits, achievement, toggleDone,
+  goal, habits, achievement, toggleDone, navigation,
 }) => {
   const weekdayNum = moment().weekday();
   const today = moment();
@@ -24,6 +24,7 @@ const HomeApp = ({
           done: !!achievement.find(a => a.id === habit.id && moment(a.date).isSame(today, 'day')),
         }))}
       check={habit => toggleDone(habit)}
+      addHabit={() => navigation.navigate('HabitSetting')}
     />
   );
 };
@@ -46,6 +47,9 @@ HomeApp.propTypes = {
     }),
   ).isRequired,
   toggleDone: PropTypes.func.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({

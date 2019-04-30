@@ -40,7 +40,6 @@ HabitApp.propTypes = {
   remove: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
-    addListener: PropTypes.func.isRequired,
   }).isRequired,
 };
 
