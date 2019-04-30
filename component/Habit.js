@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Icon, Left, List, ListItem, Right, Switch, Text,
+  Container, H3, Icon, Left, List, ListItem, Right, Switch, Text, View,
 } from 'native-base';
 import { Alert, StyleSheet } from 'react-native';
 
@@ -13,6 +13,15 @@ const styles = StyleSheet.create({
   },
   listItem: {
     height: 48,
+  },
+  message: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    alignItems: 'center',
+  },
+  hint: {
+    margin: 16,
+    color: 'gray',
   },
 });
 const Habit = ({
@@ -53,7 +62,10 @@ const Habit = ({
         ))}
       </List>
     ) : (
-      <Text>習慣が設定されていません</Text>
+      <View style={styles.message}>
+        <H3>習慣が設定されていません</H3>
+        <Text style={styles.hint}>「＋」をタップして習慣を作成しましょう。</Text>
+      </View>
     )}
   </Container>
 );
