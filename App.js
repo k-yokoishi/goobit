@@ -82,10 +82,22 @@ const HabitStack = createStackNavigator({
 
 const RootStack = createBottomTabNavigator(
   {
-    Home: { screen: HomeApp },
-    Goal: { screen: createStackNavigator({ GoalSettingApp }) },
-    Habit: { screen: HabitStack },
-    Setting: { screen: withScreen(Setting) },
+    Home: {
+      screen: HomeApp,
+      navigationOptions: () => ({ title: 'ホーム' }),
+    },
+    Goal: {
+      screen: createStackNavigator({ GoalSettingApp }),
+      navigationOptions: () => ({ title: '目標' }),
+    },
+    Habit: {
+      screen: HabitStack,
+      navigationOptions: () => ({ title: '習慣' }),
+    },
+    Setting: {
+      screen: withScreen(Setting),
+      navigationOptions: () => ({ title: '設定' }),
+    },
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
