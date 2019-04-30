@@ -144,7 +144,7 @@ class HabitSetting extends React.Component {
             </View>
           </Item>
           <Button block onPress={() => this.handleCreateHabit()} style={styles.createButton}>
-            <Text>習慣の作成</Text>
+            <Text>習慣の設定</Text>
           </Button>
         </Form>
       </Container>

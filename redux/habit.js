@@ -4,7 +4,6 @@ import moment from 'moment';
 const initialState = {
   habits: [],
   achievement: [],
-  editable: false,
 };
 
 export const initialize = createAction('habit/initialize');
@@ -12,8 +11,6 @@ export const add = createAction('habit/add');
 export const update = createAction('habit/update');
 export const remove = createAction('habit/remove');
 export const toggleDone = createAction('habit/toggleDone');
-export const toggleEditable = createAction('habit/toggleEditable');
-export const toggleEnable = createAction('habit/toggleEnable');
 
 export const habitReducer = createReducer(initialState, {
   [initialize]: () => initialState,
@@ -42,12 +39,5 @@ export const habitReducer = createReducer(initialState, {
     } else {
       state.achievement.push(Object.assign(payload, { date: today.toJSON() }));
     }
-  },
-  [toggleEditable]: (state) => {
-    Object.assign(state, { editable: !state.editable });
-  },
-  [toggleEnable]: (state, { payload }) => {
-    const toggle = h => (h.id === payload ? Object.assign(h, { enabled: !h.enabled }) : h);
-    Object.assign(state, { habits: state.habits.map(toggle) });
   },
 });

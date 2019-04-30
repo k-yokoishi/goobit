@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import {
-  Button, Container, Icon, StyleProvider, Text,
+  Button, Container, Icon, StyleProvider,
 } from 'native-base';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -19,7 +19,6 @@ import HabitUpdateApp from './container/HabitUpdate';
 import HabitDetailApp from './container/HabitDetail';
 import HomeApp from './container/Home';
 import Setting from './component/Setting';
-import { toggleEditable } from './redux/habit';
 import configureStore from './redux/configureStore';
 
 const styles = StyleSheet.create({
@@ -63,14 +62,9 @@ const HabitStack = createStackNavigator({
   Habit: {
     screen: HabitApp,
     navigationOptions: ({ navigation }) => ({
-      headerLeft: (
-        <Button transparent hasText onPress={() => store.dispatch(toggleEditable())}>
-          <Text style={{ color: 'black' }}>編集</Text>
-        </Button>
-      ),
       headerRight: (
         <Button transparent onPress={() => navigation.navigate('HabitSetting')}>
-          <Icon name="add" style={{ color: 'black', fontSize: 24 }} />
+          <Icon name="add" style={{ color: 'black', fontSize: 32 }} />
         </Button>
       ),
     }),

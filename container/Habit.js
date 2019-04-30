@@ -2,40 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Habit from '../component/Habit';
-import {
-  remove as removeAction,
-  toggleEditable as toggleEditableAction,
-  toggleEnable as toggleEnableAction,
-} from '../redux/habit';
+import { remove as removeAction } from '../redux/habit';
 
-class HabitApp extends React.Component {
-  componentDidMount() {
-    const { navigation, toggleEditable } = this.props;
-    navigation.addListener('didBlur', () => {
-      const { editable } = this.props;
-      if (editable) {
-        toggleEditable();
-      }
-    });
-  }
-
-  render() {
-    const {
-      habits, editable, remove, toggleEnable, navigation,
-    } = this.props;
-    return (
-      <Habit
-        habits={habits}
-        editable={editable}
-        remove={remove}
-        pressItem={(habitId) => {
-          navigation.navigate(editable ? 'HabitUpdate' : 'HabitDetail', { habitId });
-        }}
-        toggleEnable={habitId => toggleEnable(habitId)}
-      />
-    );
-  }
-}
+const HabitApp = ({
+  habits, editable, remove, navigation,
+}) => (
+  <Habit
+    habits={habits}
+    editable={editable}
+    remove={remove}
+    edit={(habitId) => {
+      navigation.navigate('HabitUpdate', { habitId });
+    }}
+    pressItem={(habitId) => {
+      navigation.navigate('HabitDetail', { habitId });
+    }}
+  />
+);
 
 const mapStateToProps = state => ({
   habits: state.habit.habits,
@@ -44,8 +27,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   remove: id => dispatch(removeAction(id)),
-  toggleEditable: () => dispatch(toggleEditableAction()),
-  toggleEnable: id => dispatch(toggleEnableAction(id)),
 });
 
 HabitApp.propTypes = {
@@ -57,8 +38,6 @@ HabitApp.propTypes = {
   ).isRequired,
   editable: PropTypes.bool.isRequired,
   remove: PropTypes.func.isRequired,
-  toggleEditable: PropTypes.func.isRequired,
-  toggleEnable: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     addListener: PropTypes.func.isRequired,
