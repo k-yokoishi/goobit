@@ -4,12 +4,9 @@ import { connect } from 'react-redux';
 import Habit from '../component/Habit';
 import { remove as removeAction } from '../redux/habit';
 
-const HabitApp = ({
-  habits, editable, remove, navigation,
-}) => (
+const HabitApp = ({ habits, remove, navigation }) => (
   <Habit
     habits={habits}
-    editable={editable}
     remove={remove}
     edit={(habitId) => {
       navigation.navigate('HabitUpdate', { habitId });
@@ -22,7 +19,6 @@ const HabitApp = ({
 
 const mapStateToProps = state => ({
   habits: state.habit.habits,
-  editable: state.habit.editable,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -36,7 +32,6 @@ HabitApp.propTypes = {
       habit: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  editable: PropTypes.bool.isRequired,
   remove: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
