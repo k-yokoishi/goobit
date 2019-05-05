@@ -15,6 +15,7 @@ import {
 import { StyleSheet, View } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import { AdMobBanner } from 'expo';
+import HorizontalCalender from './HorizontalCalender';
 import SunBed from '../assets/sunbed.svg';
 
 const styles = StyleSheet.create({
@@ -40,14 +41,13 @@ const styles = StyleSheet.create({
 });
 
 const Home = ({
-  goal, habits, check, addHabit,
+  goal, habits, check, selectedDay, addHabit, selectDay,
 }) => {
   const renderHabits = () => {
-    const rendered = habits.filter(habit => habit.enabled);
-    if (rendered.length) {
+    if (habits.length) {
       return (
         <View>
-          {rendered.map(habit => (
+          {habits.map(habit => (
             <ListItem key={habit.id}>
               <CheckBox checked={habit.done} onPress={() => check(habit)} color="#D32E5E" />
               <Body>
@@ -76,6 +76,7 @@ const Home = ({
     <Container>
       <Header />
       {!!goal.text && <H1 style={styles.title}>{goal.text}</H1>}
+      <HorizontalCalender selectedDay={selectedDay} onSelectDay={selectDay} />
       {renderHabits()}
       <View style={styles.banner}>
         <AdMobBanner
@@ -99,11 +100,12 @@ Home.propTypes = {
       amount: PropTypes.number.isRequired,
       unit: PropTypes.string,
       done: PropTypes.bool.isRequired,
-      enabled: PropTypes.bool.isRequired,
     }),
   ).isRequired,
+  selectedDay: PropTypes.string.isRequired,
   check: PropTypes.func.isRequired,
   addHabit: PropTypes.func.isRequired,
+  selectDay: PropTypes.func.isRequired,
 };
 
 export default Home;

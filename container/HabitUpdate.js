@@ -8,7 +8,7 @@ const HabitUpdate = ({ habits, updateHabit, navigation }) => {
   const habitId = navigation.getParam('habitId');
   const targetHabit = habits.find(h => h.id === habitId);
   const {
-    id, habit, repetition, amount, unit, remindAt, enabled,
+    id, habit, repetition, amount, unit, remindAt,
   } = targetHabit;
   return (
     <HabitSetting
@@ -18,7 +18,7 @@ const HabitUpdate = ({ habits, updateHabit, navigation }) => {
       unit={unit}
       reminder={!!remindAt}
       remindAt={remindAt ? new Date(remindAt) : new Date()}
-      createHabit={h => updateHabit(Object.assign(h, { id, enabled }))}
+      createHabit={h => updateHabit(Object.assign(h, { id }))}
     />
   );
 };
@@ -33,7 +33,6 @@ HabitUpdate.propTypes = {
       amount: PropTypes.number,
       unit: PropTypes.string,
       remindAt: PropTypes.string,
-      enabled: PropTypes.bool,
     }),
   ).isRequired,
   navigation: PropTypes.shape({

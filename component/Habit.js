@@ -109,7 +109,6 @@ Habit.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       habit: PropTypes.string.isRequired,
-      enabled: PropTypes.bool.isRequired,
     }),
   ).isRequired,
   remove: PropTypes.func.isRequired,
