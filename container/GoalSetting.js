@@ -4,11 +4,16 @@ import { connect } from 'react-redux';
 import GoalSetting from '../component/GoalSetting';
 import { update } from '../redux/goal';
 
-const GoalSettingApp = ({ set }) => <GoalSetting set={set} />;
+const GoalSettingApp = ({ goal, set }) => <GoalSetting goal={goal} set={set} />;
 
 GoalSettingApp.propTypes = {
+  goal: PropTypes.string.isRequired,
   set: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+  goal: state.goal.text,
+});
 
 const mapDispatchToProps = dispatch => ({
   set: (goal) => {
@@ -17,6 +22,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(GoalSettingApp);

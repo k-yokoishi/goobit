@@ -4,11 +4,12 @@ import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { withNotes } from '@storybook/addon-ondevice-notes';
 import { StyleProvider } from 'native-base';
 import moment from 'moment';
-import Home from '../../component/Home';
 import GoalSetting from '../../component/GoalSetting';
+import Home from '../../component/Home';
 import Habit from '../../component/Habit';
 import HabitDetail from '../../component/HabitDetail';
 import HabitSettings from '../../component/HabitSetting';
+import Setting from '../../component/Setting';
 import getTheme from '../../native-base-theme/components';
 import commonColor from '../../native-base-theme/variables/commonColor';
 
@@ -130,3 +131,6 @@ habitSettings.add(
     notes: 'HabitInitial page',
   },
 );
+
+const setting = storiesOf('Setting', module);
+setting.add('Setting initial page', () => <Setting />);

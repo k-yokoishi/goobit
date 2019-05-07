@@ -1,60 +1,30 @@
 import React from 'react';
 import {
-  Button, Container, Content, Form, Input, Item, Label, Text,
+  Container, Content, Form, Input, Item, Label,
 } from 'native-base';
 import PropTypes from 'prop-types';
-import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
-  createButton: {
-    margin: 16,
-  },
-});
-
-class GoalSetting extends React.Component {
-  constructor() {
-    super();
-    this.state = { goal: '' };
-  }
-
-  handleSet() {
-    const { set } = this.props;
-    const { goal } = this.state;
-    set(goal);
-  }
-
-  render() {
-    const { goal } = this.state;
-    return (
-      <Container>
-        <Content>
-          <Form>
-            <Item floatingLabel>
-              <Label>目標</Label>
-              <Input
-                testID="goalSetting"
-                onChangeText={(val) => {
-                  this.setState({ goal: val });
-                }}
-                value={goal}
-              />
-            </Item>
-          </Form>
-        </Content>
-        <Button
-          testID="setGoalButton"
-          block
-          style={styles.createButton}
-          onPress={() => this.handleSet()}
-        >
-          <Text>目標の設定</Text>
-        </Button>
-      </Container>
-    );
-  }
-}
+const GoalSetting = ({ goal, set }) => (
+  <Container>
+    <Content>
+      <Form>
+        <Item stackedLabel>
+          <Label>ホーム画面に表示する目標を設定できます</Label>
+          <Input
+            testID="goalSetting"
+            onChangeText={(val) => {
+              set(val);
+            }}
+            value={goal}
+          />
+        </Item>
+      </Form>
+    </Content>
+  </Container>
+);
 
 GoalSetting.propTypes = {
+  goal: PropTypes.string.isRequired,
   set: PropTypes.func.isRequired,
 };
 

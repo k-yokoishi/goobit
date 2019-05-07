@@ -18,7 +18,7 @@ import HabitSettingApp from './container/HabitSetting';
 import HabitUpdateApp from './container/HabitUpdate';
 import HabitDetailApp from './container/HabitDetail';
 import HomeApp from './container/Home';
-import Setting from './component/Setting';
+import SettingApp from './container/Setting';
 import configureStore from './redux/configureStore';
 
 const styles = StyleSheet.create({
@@ -74,22 +74,23 @@ const HabitStack = createStackNavigator({
   HabitDetail: HabitDetailApp,
 });
 
+const SettingStack = createStackNavigator({
+  Setting: SettingApp,
+  GoalSetting: GoalSettingApp,
+});
+
 const RootStack = createBottomTabNavigator(
   {
     Home: {
       screen: HomeApp,
       navigationOptions: () => ({ title: 'ホーム' }),
     },
-    Goal: {
-      screen: createStackNavigator({ GoalSettingApp }),
-      navigationOptions: () => ({ title: '目標' }),
-    },
     Habit: {
       screen: HabitStack,
       navigationOptions: () => ({ title: '習慣' }),
     },
     Setting: {
-      screen: withScreen(Setting),
+      screen: SettingStack,
       navigationOptions: () => ({ title: '設定' }),
     },
   },
