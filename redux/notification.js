@@ -9,11 +9,11 @@ export const set = createAction('notification/set');
 export const remove = createAction('notification/remove');
 
 export const notificationReducer = createReducer(initialState, {
-  [initialize]: () => initialize,
+  [initialize]: () => initialState,
   [set]: (state, { payload }) => {
-    const { habit, notificationId } = payload;
+    const { habitId, notifId } = payload;
     const index = state.notifications.findIndex(
-      n => n.habitId === habit && n.notificationId === notificationId,
+      n => n.habitId === habitId && n.notifId === notifId,
     );
     if (index >= 0) {
       state.notifications.splice(index, 1, payload);

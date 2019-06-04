@@ -1,7 +1,7 @@
 import { createAction, createReducer } from 'redux-starter-kit';
 import moment from 'moment';
 
-const initialState = {
+export const initialState = {
   habits: [],
   achievement: [],
   selectedDay: new Date().toJSON(),

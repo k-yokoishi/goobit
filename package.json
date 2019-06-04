@@ -9,7 +9,7 @@
     "format": "prettier-eslint \"**/*.js\" --write",
     "storybook": "expo start --config appStorybook.json",
     "rndebugger": "open \"rndebugger://set-debugger-loc?host=localhost&port=19001\"",
-    "test": "jest component",
+    "test": "jest __tests__",
     "e2e": "detox test"
   },
   "husky": {
