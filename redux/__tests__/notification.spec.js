@@ -1,14 +1,14 @@
 import {
-  initialize, set, remove, notificationReducer,
+  initialize, set, remove, reducer,
 } from '../notification';
 
-describe('notificationReducer', () => {
+describe('reducer', () => {
   it('initializes state', () => {
-    expect(notificationReducer({}, initialize())).toEqual({ notifications: [] });
+    expect(reducer({}, initialize())).toEqual({ notifications: [] });
   });
   it('sets notification', () => {
     expect(
-      notificationReducer(
+      reducer(
         {
           notifications: [
             { habitId: 'a', notifId: 'A' },
@@ -29,7 +29,7 @@ describe('notificationReducer', () => {
   });
   it('overwites notification', () => {
     expect(
-      notificationReducer(
+      reducer(
         {
           notifications: [
             { habitId: 'a', notifId: 'A', notifyAt: new Date('2000-01-01').toJSON() },
@@ -49,7 +49,7 @@ describe('notificationReducer', () => {
   });
   it('removes notification', () => {
     expect(
-      notificationReducer(
+      reducer(
         {
           notifications: [
             { habitId: 'a' },

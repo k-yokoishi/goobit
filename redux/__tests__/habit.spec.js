@@ -6,19 +6,19 @@ import {
   remove,
   toggleDone,
   selectDay,
-  habitReducer,
+  reducer,
 } from '../habit';
 
-describe('habitReducer', () => {
+describe('reducer', () => {
   it('initializes state', () => {
-    expect(habitReducer({}, initialize())).toEqual(initialState);
+    expect(reducer({}, initialize())).toEqual(initialState);
   });
   it('adds habit', () => {
-    expect(habitReducer({ habits: [] }, add({ id: 'a' }))).toEqual({ habits: [{ id: 'a' }] });
+    expect(reducer({ habits: [] }, add({ id: 'a' }))).toEqual({ habits: [{ id: 'a' }] });
   });
   it('updates habit', () => {
     expect(
-      habitReducer(
+      reducer(
         {
           habits: [{ id: 'a', habit: 'foo' }, { id: 'b', habit: 'bar' }, { id: 'c', habit: 'baz' }],
         },
@@ -30,7 +30,7 @@ describe('habitReducer', () => {
   });
   it('removes habit and achievement by habit id', () => {
     expect(
-      habitReducer(
+      reducer(
         {
           habits: [{ id: 'a', habit: 'foo' }, { id: 'b', habit: 'bar' }, { id: 'c', habit: 'baz' }],
           achievement: [
@@ -48,7 +48,7 @@ describe('habitReducer', () => {
   });
   it('adds achievement', () => {
     expect(
-      habitReducer(
+      reducer(
         {
           selectedDay: new Date('2000-01-04').toJSON(),
           achievement: [
@@ -71,7 +71,7 @@ describe('habitReducer', () => {
   });
   it('removes achievement', () => {
     expect(
-      habitReducer(
+      reducer(
         {
           selectedDay: new Date('2000-01-02').toJSON(),
           achievement: [
@@ -92,7 +92,7 @@ describe('habitReducer', () => {
   });
   it('updates selected', () => {
     expect(
-      habitReducer(
+      reducer(
         { selectedDay: new Date('2000-01-01').toJSON() },
         selectDay(new Date('2000-01-02').toJSON()),
       ),

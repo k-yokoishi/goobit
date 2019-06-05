@@ -1,15 +1,21 @@
-import { createAction, createReducer } from 'redux-starter-kit';
+import { createSlice } from 'redux-starter-kit';
 
 const initialState = {
   text: '',
 };
 
-export const initialize = createAction('goal/initialize');
-export const update = createAction('goal/update');
-
-export const goalReducer = createReducer(initialState, {
-  [initialize]: () => initialState,
-  [update]: (state, action) => {
-    Object.assign(state, { text: action.payload.text });
+const goal = createSlice({
+  slice: 'goal',
+  initialState,
+  reducers: {
+    initialize: () => initialState,
+    update: (state, action) => {
+      Object.assign(state, { text: action.payload.text });
+    },
   },
 });
+
+export const {
+  reducer,
+  actions: { initialize, update },
+} = goal;
