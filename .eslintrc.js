@@ -4,6 +4,13 @@ module.exports = {
     element: true,
     by: true,
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
   rules: {
     'react/jsx-filename-extension': [0, { extensions: ['.js', '.jsx'] }],
     'import/no-extraneous-dependencies': [

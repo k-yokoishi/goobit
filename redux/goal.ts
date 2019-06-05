@@ -1,5 +1,8 @@
-import { createSlice } from 'redux-starter-kit';
+import { createSlice, PayloadAction } from 'redux-starter-kit';
 
+interface State {
+  text: string
+}
 const initialState = {
   text: '',
 };
@@ -9,7 +12,7 @@ const goal = createSlice({
   initialState,
   reducers: {
     initialize: () => initialState,
-    update: (state, action) => {
+    update: (state: State, action: PayloadAction<State>) => {
       Object.assign(state, { text: action.payload.text });
     },
   },

@@ -1,7 +1,39 @@
-import { createSlice } from 'redux-starter-kit';
+import { createSlice, PayloadAction } from 'redux-starter-kit';
 import moment from 'moment';
 
-export const initialState = {
+interface Habit {
+  habit: string,
+  repetition: {
+    0: boolean,
+    1: boolean,
+    2: boolean,
+    3: boolean,
+    4: boolean,
+    5: boolean,
+    6: boolean,
+  },
+  amount: number,
+  unit: string,
+  remindAt: string,
+  id: string
+}
+
+interface Achievement {
+  id: string,
+  habit: string,
+  amount: number,
+  unit: string,
+  done: boolean,
+  date: string
+}
+
+interface State {
+  habits: Array<Habit>
+  achievement: Array<Achievement>,
+  selectedDay: string
+}
+
+export const initialState: State = {
   habits: [],
   achievement: [],
   selectedDay: new Date().toJSON(),
@@ -12,19 +44,19 @@ const habit = createSlice({
   initialState,
   reducers: {
     initialize: () => initialState,
-    add: (state, { payload }) => {
+    add: (state: State, { payload }: PayloadAction<Habit>) => {
       state.habits.push(payload);
     },
-    update: (state, { payload }) => {
+    update: (state: State, { payload }: PayloadAction<Habit>) => {
       const { id } = payload;
       Object.assign(state, { habits: state.habits.map(h => (h.id === id ? payload : h)) });
     },
-    remove: (state, { payload }) => {
+    remove: (state: State, { payload }: PayloadAction<string>) => {
       const habits = state.habits.filter(h => h.id !== payload);
       const achievement = state.achievement.filter(a => a.id !== payload);
       Object.assign(state, { habits, achievement });
     },
-    toggleDone: (state, { payload }) => {
+    toggleDone: (state: State, { payload }: PayloadAction<Achievement>) => {
       const { id } = payload;
       const completionDate = moment(state.selectedDay);
       const index = state.achievement.findIndex(
@@ -38,7 +70,7 @@ const habit = createSlice({
         state.achievement.push(Object.assign(payload, { date: completionDate.toJSON() }));
       }
     },
-    selectDay: (state, { payload }) => {
+    selectDay: (state: State, { payload }: PayloadAction<string>) => {
       Object.assign(state, { selectedDay: payload });
     },
   },

@@ -1,5 +1,14 @@
-import { createSlice } from 'redux-starter-kit';
+import { createSlice, PayloadAction } from 'redux-starter-kit';
 
+interface Notification {
+  habitId: string,
+  notifId: string,
+  notifyAt: string,
+}
+
+interface State {
+  notifications: Array<Notification>
+}
 const initialState = {
   notifications: [],
 };
@@ -9,7 +18,7 @@ const notification = createSlice({
   initialState,
   reducers: {
     initialize: () => initialState,
-    set: (state, { payload }) => {
+    set: (state: State, { payload }: PayloadAction<Notification>) => {
       const { habitId, notifId } = payload;
       const index = state.notifications.findIndex(
         n => n.habitId === habitId && n.notifId === notifId,
@@ -20,7 +29,7 @@ const notification = createSlice({
         state.notifications.push(payload);
       }
     },
-    remove: (state, { payload }) => {
+    remove: (state: State, { payload }: PayloadAction<string>) => {
       const notifications = state.notifications.filter(n => n.habitId !== payload);
       Object.assign(state, { notifications });
     },
