@@ -1,5 +1,13 @@
 module.exports = {
-  extends: ['airbnb', 'plugin:jest/recommended'],
+  extends: ['airbnb', 'plugin:jest/recommended', 'plugin:@typescript-eslint/recommended'],
+  plugins: ['@typescript-eslint'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    useJSXTextNode: true,
+  },
   globals: {
     element: true,
     by: true,
@@ -12,7 +20,10 @@ module.exports = {
     },
   },
   rules: {
-    'react/jsx-filename-extension': [0, { extensions: ['.js', '.jsx'] }],
+    'react/jsx-filename-extension': [0, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    indent: 'off',
+    '@typescript-eslint/indent': ['error', 2],
+    '@typescript-eslint/explicit-function-return-type': 'off', // annoying to force return type
     'import/no-extraneous-dependencies': [
       'error',
       {

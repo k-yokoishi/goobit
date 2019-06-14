@@ -2,35 +2,35 @@ import { createSlice, PayloadAction } from 'redux-starter-kit';
 import moment from 'moment';
 
 interface Habit {
-  habit: string,
+  habit: string;
   repetition: {
-    0: boolean,
-    1: boolean,
-    2: boolean,
-    3: boolean,
-    4: boolean,
-    5: boolean,
-    6: boolean,
-  },
-  amount: number,
-  unit: string,
-  remindAt: string,
-  id: string
+    0: boolean;
+    1: boolean;
+    2: boolean;
+    3: boolean;
+    4: boolean;
+    5: boolean;
+    6: boolean;
+  };
+  amount: number;
+  unit: string;
+  remindAt: string;
+  id: string;
 }
 
 interface Achievement {
-  id: string,
-  habit: string,
-  amount: number,
-  unit: string,
-  done: boolean,
-  date: string
+  id: string;
+  habit: string;
+  amount: number;
+  unit: string;
+  done: boolean;
+  date: string;
 }
 
 interface State {
-  habits: Array<Habit>
-  achievement: Array<Achievement>,
-  selectedDay: string
+  habits: Habit[];
+  achievement: Achievement[];
+  selectedDay: string;
 }
 
 export const initialState: State = {

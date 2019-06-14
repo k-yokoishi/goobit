@@ -5,8 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "eslint": "eslint \"**/*.js\"",
-    "format": "prettier-eslint \"**/*.js\" --write",
+    "eslint": "eslint \"**/*.{ts,tsx,js}\"",
+    "format": "prettier-eslint \"**/*.{ts,tsx,js}\" --write",
     "storybook": "expo start --config appStorybook.json",
     "rndebugger": "open \"rndebugger://set-debugger-loc?host=localhost&port=19001\"",
     "test": "jest __tests__",
@@ -18,7 +18,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "*.{ts,tsx,js}": [
       "yarn format",
       "yarn eslint",
       "git add"
@@ -65,6 +65,8 @@
     "@storybook/addon-ondevice-notes": "^4.1.11",
     "@storybook/react-native": "^4.1.11",
     "@types/react-native": "^0.57.0",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
     "babel-preset-expo": "^5.0.0",
     "detox": "^12.5.0",
     "detox-expo-helpers": "^0.6.0",

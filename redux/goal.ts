@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from 'redux-starter-kit';
 
 interface State {
-  text: string
+  text: string;
 }
 const initialState = {
   text: '',
