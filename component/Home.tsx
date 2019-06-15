@@ -18,6 +18,26 @@ import { AdMobBanner } from 'expo';
 import HorizontalCalender from './HorizontalCalender';
 import SunBed from '../assets/sunbed.svg';
 
+interface Habit {
+  id: string;
+  habit: string;
+  repetition: { [weekDayNum: string]: boolean };
+  amount: number;
+  unit: string;
+  remindAt: string | null;
+  done: boolean;
+  date: string;
+}
+
+interface Props {
+  goal: { text: string };
+  habits: Habit[];
+  selectedDay: string;
+  check: (habit: Habit) => void;
+  addHabit: () => void;
+  selectDay: (jsonDate: string) => void;
+}
+
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
@@ -42,7 +62,7 @@ const styles = StyleSheet.create({
 
 const Home = ({
   goal, habits, check, selectedDay, addHabit, selectDay,
-}) => {
+}: Props) => {
   const renderHabits = () => {
     if (habits.length) {
       return (
@@ -87,25 +107,6 @@ const Home = ({
       </View>
     </Container>
   );
-};
-
-Home.propTypes = {
-  goal: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-  }).isRequired,
-  habits: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      habit: PropTypes.string.isRequired,
-      amount: PropTypes.number.isRequired,
-      unit: PropTypes.string,
-      done: PropTypes.bool.isRequired,
-    }),
-  ).isRequired,
-  selectedDay: PropTypes.string.isRequired,
-  check: PropTypes.func.isRequired,
-  addHabit: PropTypes.func.isRequired,
-  selectDay: PropTypes.func.isRequired,
 };
 
 export default Home;

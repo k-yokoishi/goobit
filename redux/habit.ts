@@ -3,27 +3,18 @@ import moment from 'moment';
 
 interface Habit {
   habit: string;
-  repetition: {
-    0: boolean;
-    1: boolean;
-    2: boolean;
-    3: boolean;
-    4: boolean;
-    5: boolean;
-    6: boolean;
-  };
-  amount: number;
+  repetition: { [weekDayNum: string]: boolean };
+  amount: number | null;
   unit: string;
-  remindAt: string;
+  remindAt: string | null;
   id: string;
 }
 
 interface Achievement {
   id: string;
   habit: string;
-  amount: number;
+  amount: number | null;
   unit: string;
-  done: boolean;
   date: string;
 }
 
@@ -56,7 +47,7 @@ const habit = createSlice({
       const achievement = state.achievement.filter(a => a.id !== payload);
       Object.assign(state, { habits, achievement });
     },
-    toggleDone: (state: State, { payload }: PayloadAction<Achievement>) => {
+    toggleDone: (state: State, { payload }: PayloadAction<Habit>) => {
       const { id } = payload;
       const completionDate = moment(state.selectedDay);
       const index = state.achievement.findIndex(
@@ -67,7 +58,7 @@ const habit = createSlice({
           achievement: state.achievement.filter((_, i) => i !== index),
         });
       } else {
-        state.achievement.push(Object.assign(payload, { date: completionDate.toJSON() }));
+        state.achievement.push({ date: completionDate.toJSON(), ...payload });
       }
     },
     selectDay: (state: State, { payload }: PayloadAction<string>) => {

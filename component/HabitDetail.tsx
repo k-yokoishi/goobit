@@ -1,18 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Container, Content, H1 } from 'native-base';
 import { Dimensions, StyleSheet } from 'react-native';
-import { CalendarList } from 'react-native-calendars';
+import { CalendarList, DateObject } from 'react-native-calendars';
 import { BarChart } from 'react-native-chart-kit';
 import moment from 'moment';
+import { Achievement, Habit } from '../types/type';
+
+interface Props {
+  habit: Habit | undefined;
+  achievements: Achievement[];
+}
+
+interface State {
+  visibleYear: number;
+  visibleMonth: number;
+}
 
 const styles = StyleSheet.create({
   title: { textAlign: 'center' },
 });
 
-class HabitDetail extends React.Component {
-  constructor() {
-    super();
+class HabitDetail extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
     const now = moment();
     this.state = { visibleYear: now.year(), visibleMonth: now.month() + 1 };
   }
@@ -32,13 +42,7 @@ class HabitDetail extends React.Component {
     return [...Array(weekOfend - weekOfStart + 1).keys()].map(x => moment().week(x + weekOfStart));
   }
 
-  filterAchievementByYearMonth(achievement) {
-    const achieveDate = moment(achievement.date);
-    const { visibleYear, visibleMonth } = this.state;
-    return achieveDate.year() === visibleYear && achieveDate.month() + 1 === visibleMonth;
-  }
-
-  handleVisibleMonthsChange(months) {
+  handleVisibleMonthsChange(months: DateObject[]) {
     this.setState({ visibleYear: months[0].year, visibleMonth: months[0].month });
   }
 
@@ -69,7 +73,7 @@ class HabitDetail extends React.Component {
     return (
       <Container>
         <Content>
-          <H1 style={styles.title}>{habit.habit}</H1>
+          {habit && <H1 style={styles.title}>{habit.habit}</H1>}
           <CalendarList
             horizontal
             pagingEnabled
@@ -106,14 +110,5 @@ class HabitDetail extends React.Component {
     );
   }
 }
-
-HabitDetail.propTypes = {
-  habit: PropTypes.shape({
-    habit: PropTypes.string.isRequired,
-  }).isRequired,
-  achievements: PropTypes.arrayOf(
-    PropTypes.shape({ date: PropTypes.string.isRequired, amount: PropTypes.number.isRequired }),
-  ).isRequired,
-};
 
 export default HabitDetail;

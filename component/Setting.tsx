@@ -4,7 +4,10 @@ import {
   Icon, Left, List, ListItem, Right, Separator, Text,
 } from 'native-base';
 
-const Setting = ({ setGoal }) => (
+interface Props {
+  setGoal: () => void;
+}
+const Setting = ({ setGoal }: Props) => (
   <List>
     <Separator bordered />
     <ListItem onPress={setGoal}>

@@ -1,12 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // to change locale in momentJS in React Native
 // https://github.com/moment/moment/issues/4422
-import moment from 'moment/min/moment-with-locales';
+// https://github.com/moment/moment/issues/1875#issuecomment-421613092
+import moment from 'moment';
+import 'moment/locale/ja';
 
 import { Button, Text } from 'native-base';
 import { ScrollView, StyleSheet, View } from 'react-native';
+
+interface Props {
+  selectedDay: string;
+  onSelectDay: (jsonDate: string) => void;
+}
 
 const styles = StyleSheet.create({
   dayButton: {
@@ -23,11 +29,16 @@ const styles = StyleSheet.create({
   },
 });
 
-class HorizontalCalender extends React.Component {
-  constructor(props) {
+class HorizontalCalender extends React.Component<Props> {
+  static defaultProps = {
+    selectedDay: new Date().toJSON(),
+  };
+
+  scrollViewRef = React.createRef<ScrollView>();
+
+  constructor(props: Props) {
     super(props);
     moment.locale('ja');
-    this.scrollViewRef = React.createRef();
   }
 
   render() {
@@ -38,7 +49,7 @@ class HorizontalCalender extends React.Component {
         <ScrollView
           horizontal
           ref={this.scrollViewRef}
-          onContentSizeChange={() => this.scrollViewRef.current.scrollToEnd({ animated: false })}
+          onContentSizeChange={() => this.scrollViewRef.current!.scrollToEnd({ animated: false })}
         >
           {[...new Array(28).keys()].reverse().map((i) => {
             const day = moment().add(-i, 'day');
@@ -60,14 +71,5 @@ class HorizontalCalender extends React.Component {
     );
   }
 }
-
-HorizontalCalender.propTypes = {
-  selectedDay: PropTypes.string,
-  onSelectDay: PropTypes.func.isRequired,
-};
-
-HorizontalCalender.defaultProps = {
-  selectedDay: new Date().toJSON(),
-};
 
 export default HorizontalCalender;

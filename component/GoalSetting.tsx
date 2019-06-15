@@ -4,7 +4,12 @@ import {
 } from 'native-base';
 import PropTypes from 'prop-types';
 
-const GoalSetting = ({ goal, set }) => (
+export interface Props {
+  goal: string;
+  set: (text: string) => void;
+}
+
+const GoalSetting = ({ goal, set }: Props) => (
   <Container>
     <Content>
       <Form>

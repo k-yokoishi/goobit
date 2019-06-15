@@ -1,20 +1,37 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { NavigationTransitionProps } from 'react-navigation';
 import HabitSetting from '../component/HabitSetting';
 import { update } from '../redux/habit';
+import { AppState } from '../redux/reducer';
 
-const HabitUpdate = ({ habits, updateHabit, navigation }) => {
+interface Habit {
+  habit: string;
+  repetition: { [weekDayNum: string]: boolean };
+  amount: number | null;
+  unit: string;
+  remindAt: string | null;
+  id: string;
+}
+
+type Props = {
+  habits: Habit[];
+  updateHabit: (habit: Habit) => void;
+} & NavigationTransitionProps;
+
+const HabitUpdate = ({ habits, updateHabit, navigation }: Props) => {
   const habitId = navigation.getParam('habitId');
   const targetHabit = habits.find(h => h.id === habitId);
+
   const {
     id, habit, repetition, amount, unit, remindAt,
-  } = targetHabit;
+  } = targetHabit!;
   return (
     <HabitSetting
       habit={habit}
       repetition={repetition}
-      amount={amount.toString()}
+      amount={amount ? amount.toString() : null}
       unit={unit}
       reminder={!!remindAt}
       remindAt={remindAt ? new Date(remindAt) : new Date()}
@@ -23,29 +40,12 @@ const HabitUpdate = ({ habits, updateHabit, navigation }) => {
   );
 };
 
-HabitUpdate.propTypes = {
-  updateHabit: PropTypes.func.isRequired,
-  habits: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      habit: PropTypes.string,
-      repetition: PropTypes.objectOf(PropTypes.bool),
-      amount: PropTypes.number,
-      unit: PropTypes.string,
-      remindAt: PropTypes.string,
-    }),
-  ).isRequired,
-  navigation: PropTypes.shape({
-    getParam: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   habits: state.habit.habits,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateHabit: (habit) => {
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props) => ({
+  updateHabit: (habit: Habit) => {
     dispatch(update(habit));
     ownProps.navigation.navigate('Habit');
   },

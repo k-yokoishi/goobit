@@ -2,12 +2,53 @@ import React from 'react';
 import {
   Button, Container, Form, Text, View, Label, Item, Input, Switch,
 } from 'native-base';
-import PropTypes from 'prop-types';
 import { DatePickerIOS, ScrollView, StyleSheet } from 'react-native';
 // to change locale in momentJS in React Native
 // https://github.com/moment/moment/issues/4422
-import moment from 'moment/min/moment-with-locales';
+// https://github.com/moment/moment/issues/1875#issuecomment-421613092
+import moment from 'moment';
+import 'moment/locale/ja';
+
 import uuidv4 from 'uuid/v4';
+
+interface Repetition {
+  [weekDayNum: string]: boolean;
+  // Domain of weekDayNum is as follows
+  // 0: sun
+  // 1: mon
+  // 2: tue
+  // 3: wed
+  // 4: thu
+  // 5: fri
+  // 6: sat
+}
+
+interface Habit {
+  habit: string;
+  repetition: Repetition;
+  amount: number | string | null;
+  unit: string;
+  remindAt: Date | null;
+  reminder: boolean;
+}
+
+interface Arg {
+  habit: string;
+  repetition: Repetition;
+  // from form                => string
+  // from props (redux state) => number
+  // on page loaded           => null
+  amount: number | null;
+  unit: string;
+  remindAt: string | null;
+  id: string;
+}
+
+type Props = Habit & {
+  createHabit: (habit: Arg) => void;
+};
+
+type State = Habit & {};
 
 const styles = StyleSheet.create({
   weekdayButton: {
@@ -21,8 +62,25 @@ const styles = StyleSheet.create({
   },
 });
 
-class HabitSetting extends React.Component {
-  constructor(props) {
+class HabitSetting extends React.Component<Props, State> {
+  static defaultProps: Habit = {
+    habit: '',
+    repetition: {
+      0: false, // sun
+      1: false, // mon
+      2: false, // tue
+      3: false, // wed
+      4: false, // thu
+      5: false, // fri
+      6: false, // sat
+    },
+    amount: null,
+    unit: '',
+    reminder: false,
+    remindAt: new Date(),
+  };
+
+  constructor(props: Props) {
     super(props);
     const {
       habit, repetition, amount, unit, reminder, remindAt,
@@ -38,10 +96,10 @@ class HabitSetting extends React.Component {
     moment.locale('ja');
   }
 
-  handleToggleRepetition(weekdayNum) {
+  handleToggleRepetition(weekdayNum: number) {
     const { repetition } = this.state;
     const updatedRepetition = Object.assign({}, repetition, {
-      [weekdayNum]: !repetition[weekdayNum],
+      [weekdayNum]: !repetition[weekdayNum.toString()],
     });
     this.setState({ repetition: updatedRepetition });
   }
@@ -54,14 +112,15 @@ class HabitSetting extends React.Component {
     createHabit({
       habit,
       repetition,
-      amount: Number(amount),
+      amount: amount ? Number(amount) : null,
       unit,
-      remindAt: reminder
-        ? moment(remindAt)
-          .seconds(0)
-          .milliseconds(0)
-          .toJSON()
-        : null,
+      remindAt:
+        reminder && remindAt
+          ? moment(remindAt)
+            .seconds(0)
+            .milliseconds(0)
+            .toJSON()
+          : null,
       id: uuidv4(),
     });
   }
@@ -88,7 +147,7 @@ class HabitSetting extends React.Component {
                       key={weekday}
                       style={[
                         styles.weekdayButton,
-                        repetition[index] ? {} : { backgroundColor: 'lightgray' },
+                        repetition[index.toString()] ? {} : { backgroundColor: 'lightgray' },
                       ]}
                       onPress={() => this.handleToggleRepetition(index)}
                     >
@@ -103,7 +162,7 @@ class HabitSetting extends React.Component {
             <Item inlineLabel error={amount !== null && amount !== '' && !Number(amount)}>
               <Label>量</Label>
               <Input
-                value={amount}
+                value={amount ? amount.toString() : undefined}
                 keyboardType="numeric"
                 onChangeText={v => this.setState({ amount: v })}
               />
@@ -134,7 +193,7 @@ class HabitSetting extends React.Component {
                   }}
                   style={{ marginLeft: 'auto' }}
                 />
-                {reminder && (
+                {reminder && remindAt && (
                   <DatePickerIOS
                     mode="time"
                     date={remindAt}
@@ -159,32 +218,5 @@ class HabitSetting extends React.Component {
     );
   }
 }
-
-HabitSetting.defaultProps = {
-  habit: null,
-  repetition: {
-    0: false, // sun
-    1: false, // mon
-    2: false, // tue
-    3: false, // wed
-    4: false, // thu
-    5: false, // fri
-    6: false, // sat
-  },
-  amount: null,
-  unit: null,
-  reminder: false,
-  remindAt: new Date(),
-};
-
-HabitSetting.propTypes = {
-  habit: PropTypes.string,
-  repetition: PropTypes.objectOf(PropTypes.bool),
-  amount: PropTypes.string,
-  unit: PropTypes.string,
-  reminder: PropTypes.bool,
-  remindAt: PropTypes.instanceOf(Date),
-  createHabit: PropTypes.func.isRequired,
-};
 
 export default HabitSetting;

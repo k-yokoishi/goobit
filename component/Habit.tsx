@@ -8,6 +8,20 @@ import SvgUri from 'react-native-svg-uri';
 import Swipeable from 'react-native-swipeable';
 import Desk from '../assets/desk.svg';
 
+interface Habit {
+  id: string;
+  habit: string;
+  unit: string;
+  amount: number;
+}
+
+interface Props {
+  habits: Habit[];
+  remove: (habitId: string) => void;
+  edit: (habitId: string) => void;
+  pressItem: (habitId: string) => void;
+}
+
 const styles = StyleSheet.create({
   listItem: {
     height: 48,
@@ -38,11 +52,11 @@ const styles = StyleSheet.create({
 
 const Habit = ({
   habits, remove, edit, pressItem,
-}) => {
-  const handleEdit = (habitId) => {
+}: Props) => {
+  const handleEdit = (habitId: string) => {
     edit(habitId);
   };
-  const handleRemove = (habitId) => {
+  const handleRemove = (habitId: string) => {
     Alert.alert('習慣を削除します', '一度削除した習慣は元に戻せませんがよろしいですか？', [
       { text: 'キャンセル', style: 'cancel' },
       { text: '削除', onPress: () => remove(habitId) },
