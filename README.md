@@ -1,6 +1,10 @@
+[![Build Status](https://travis-ci.com/k-yokoishi/goobit.svg?branch=master)](https://travis-ci.com/k-yokoishi/goobit)
+
 # Goobit
 
 iOS app to make your Good Habit!
+
+It hasn't been released yet, but can be tried with [Expo CDN](https://expo.io/@k-yokoishi/goobit).
 
 ## How to develop Goobit
 
