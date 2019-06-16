@@ -4786,14 +4786,13 @@ detox-expo-helpers@^0.6.0:
     semver "^5.6.0"
     xdl "^51.5.0"
 
-detox@^12.5.0:
-  version "12.5.0"
-  resolved "https://registry.yarnpkg.com/detox/-/detox-12.5.0.tgz#eed11a2cfd701874534a3e6378e1195ebcb37ac0"
-  integrity sha512-QIEUj/l3GQDqzVRmRk/iiSvSey/Qam/nyV19Xc3zH23CCqWSEtdsJRmg6812uxA2ohxr4pwER7x6hb2KUYl6lA==
+detox@12.3.0:
+  version "12.3.0"
+  resolved "https://registry.yarnpkg.com/detox/-/detox-12.3.0.tgz#b586f7a0c18b031dd84d245b0a465f0acb9e83bc"
+  integrity sha512-7jAxGrebzFK9xEs1+Uifn8Y5Zeb3vUS2L56d04cJvt24ULB6ByNTyJbltcqnWIBjxTLpgCCPFShwRwa8KFcrNQ==
   dependencies:
     bunyan "^1.8.12"
     bunyan-debug-stream "^1.1.0"
-    chalk "^2.4.2"
     child-process-promise "^2.2.0"
     fs-extra "^4.0.2"
     get-port "^2.1.0"

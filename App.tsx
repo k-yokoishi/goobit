@@ -31,8 +31,6 @@ const getTabBarIcon = (
   let iconName = '';
   if (routeName === 'Home') {
     iconName = 'home';
-  } else if (routeName === 'Goal') {
-    iconName = 'trophy';
   } else if (routeName === 'Habit') {
     iconName = 'calendar';
   } else if (routeName === 'Setting') {
