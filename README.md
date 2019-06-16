@@ -15,26 +15,21 @@ It hasn't been released yet, but can be tried with [Expo CDN](https://expo.io/@k
 
 ### Installation
 
-* [Expo](https://expo.io/) is used to create this app
+* [Expo](https://expo.io/) is used to manage this app
 
-  ```
+  ```sh
   npm install -g expo-cli
   ```
 
-* [Detox](https://github.com/wix/Detox) for E2E testing
-  * [See Usage with Expo (iOS)](https://github.com/wix/Detox/blob/master/docs/Guide.Expo.md)
-  * Download [iOS IPA](https://expo.io/tools#client), unzip and rename the folder to `Exponent.app`.
-  * Make directory `goobit/bin` and put `Exponent.app` there.
-
 * Install dependencies
 
-  ```
+  ```sh
   yarn install
   ```
 
 ### Development
 * (Optional) Launch [React Native Debugger](https://github.com/jhen0409/react-native-debugger)
-  ```
+  ```sh
   yarn rndebugger
   ```
 
@@ -43,7 +38,7 @@ It hasn't been released yet, but can be tried with [Expo CDN](https://expo.io/@k
 
 * Launch expo server
 
-  ```
+  ```sh
   yarn start
   # or if you launch server with iOS simulator
   yarn ios
@@ -59,15 +54,23 @@ It hasn't been released yet, but can be tried with [Expo CDN](https://expo.io/@k
 ### Testing
 * Unit tests (now including component tests)
 
-  ```
+  ```sh
   yarn test
   ```
 
 * E2E tests
+  * [Detox](https://github.com/wix/Detox) is used for E2E testing
+  * To download [iOS IPA](https://expo.io/tools#client), run:
 
-  ```
-  yarn ios
-  yarn e2e
-  ```
+    ```sh
+    yarn setup-bin
+    ```
+
+  * Run E2E tests
+
+    ```sh
+    yarn ios # Start simulator in advance
+    yarn e2e
+    ```
 
   Note: Disable `Hardware > Keyboard > Connect Hardware Keyboard` in iOS simulator setting to use simulator's keyboard in E2E test.
