@@ -1,14 +1,14 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import {
-  Button, Container, Icon, StyleProvider,
-} from 'native-base';
+import { Button, Icon, StyleProvider } from 'native-base';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {
   createAppContainer,
   createBottomTabNavigator,
   createStackNavigator,
+  NavigationScreenProps,
+  NavigationScreenProp,
+  NavigationRoute,
 } from 'react-navigation';
 import getTheme from './native-base-theme/components';
 import commonColor from './native-base-theme/variables/commonColor';
@@ -21,29 +21,12 @@ import HomeApp from './container/Home';
 import SettingApp from './container/Setting';
 import configureStore from './redux/configureStore';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 64,
-  },
-  headerButton: {
-    marginLeft: 16,
-    marginRight: 16,
-  },
-});
-
-export const withScreen = WrappedComponent => () => (
-  <Container style={styles.container}>
-    <WrappedComponent />
-  </Container>
-);
-
 const { store, persistor } = configureStore();
 
-const getTabBarIcon = (navigation, focused, tintColor) => {
+const getTabBarIcon = (
+  navigation: NavigationScreenProp<NavigationRoute>,
+  tintColor: string | null,
+) => {
   const { routeName } = navigation.state;
   let iconName = '';
   if (routeName === 'Home') {
@@ -61,7 +44,7 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 const HabitStack = createStackNavigator({
   Habit: {
     screen: HabitApp,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: ({ navigation }: NavigationScreenProps<{}>) => ({
       headerRight: (
         <Button transparent onPress={() => navigation.navigate('HabitSetting')}>
           <Icon name="add" style={{ color: 'black', fontSize: 32 }} />
@@ -96,7 +79,7 @@ const RootStack = createBottomTabNavigator(
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, tintColor }) => getTabBarIcon(navigation, focused, tintColor),
+      tabBarIcon: ({ tintColor }) => getTabBarIcon(navigation, tintColor),
     }),
     tabBarOptions: {
       activeTintColor: '#D32E5E',
