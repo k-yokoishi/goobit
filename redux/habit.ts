@@ -47,7 +47,7 @@ const habit = createSlice({
       const achievement = state.achievement.filter(a => a.id !== payload);
       Object.assign(state, { habits, achievement });
     },
-    toggleDone: (state: State, { payload }: PayloadAction<Habit>) => {
+    toggleDone: (state: State, { payload }: PayloadAction<Achievement>) => {
       const { id } = payload;
       const completionDate = moment(state.selectedDay);
       const index = state.achievement.findIndex(

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Body,
   Button,
@@ -26,6 +25,13 @@ interface Habit {
   unit: string;
   remindAt: string | null;
   done: boolean;
+}
+
+interface Achievement {
+  id: string;
+  habit: string;
+  amount: number | null;
+  unit: string;
   date: string;
 }
 
@@ -33,7 +39,7 @@ interface Props {
   goal: { text: string };
   habits: Habit[];
   selectedDay: string;
-  check: (habit: Habit) => void;
+  check: (habit: Achievement) => void;
   addHabit: () => void;
   selectDay: (jsonDate: string) => void;
 }
@@ -67,17 +73,35 @@ const Home = ({
     if (habits.length) {
       return (
         <View>
-          {habits.map(habit => (
-            <ListItem key={habit.id}>
-              <CheckBox checked={habit.done} onPress={() => check(habit)} color="#D32E5E" />
-              <Body>
-                <Text>{habit.habit}</Text>
-              </Body>
-              <Right>
-                <Text>{`${habit.amount}${habit.unit || ''}`}</Text>
-              </Right>
-            </ListItem>
-          ))}
+          {habits.map((h) => {
+            const {
+              id, habit, done, amount, unit,
+            } = h;
+            return (
+              <ListItem key={id}>
+                <CheckBox
+                  checked={done}
+                  onPress={() => check({
+                    id,
+                    habit,
+                    amount,
+                    unit,
+                    date: selectedDay,
+                  })
+                  }
+                  color="#D32E5E"
+                />
+                <Body>
+                  <Text>{habit}</Text>
+                </Body>
+                {amount && (
+                  <Right>
+                    <Text>{`${amount}${unit || ''}`}</Text>
+                  </Right>
+                )}
+              </ListItem>
+            );
+          })}
         </View>
       );
     }

@@ -21,11 +21,11 @@ interface Habit {
 interface Achievement {
   id: string;
   habit: string;
-  repetition: { [weekDayNum: string]: boolean };
-  amount: number;
+  // repetition: { [weekDayNum: string]: boolean };
+  amount: number | null;
   unit: string;
-  remindAt: string | null;
-  done: boolean;
+  // remindAt: string | null;
+  // done: boolean;
   date: string;
 }
 
@@ -35,7 +35,8 @@ type Props = {
   achievement: Achievement[];
   selectedDay: string;
   selectDay: (jsonDate: string) => void;
-  toggleDone: (habit: Habit) => void;
+  toggleDone: (habit: Achievement) => void;
+  // toggleDone: (habit: Habit) => void;
 } & NavigationTransitionProps;
 
 const HomeApp = ({
