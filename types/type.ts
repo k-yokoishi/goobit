@@ -1,9 +1,12 @@
+export interface Identifiable {
+  id: string;
+}
+
 export interface Achievement {
   id: string;
   habit: string;
-  amount: number;
+  amount: number | null;
   unit: string;
-  done: boolean;
   date: string;
 }
 
@@ -15,17 +18,10 @@ export interface Notification {
 
 export interface Habit {
   habit: string;
-  repetition: {
-    0: boolean;
-    1: boolean;
-    2: boolean;
-    3: boolean;
-    4: boolean;
-    5: boolean;
-    6: boolean;
-  };
-  amount: number;
+  repetition: { [weekdayNum: string]: boolean };
+  amount: number | null;
   unit: string;
-  remindAt: string;
-  id: string;
+  remindAt: string | null;
 }
+
+export interface IDHabit extends Habit, Identifiable {}

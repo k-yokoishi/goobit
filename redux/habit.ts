@@ -1,14 +1,7 @@
 import { createSlice, PayloadAction } from 'redux-starter-kit';
 import moment from 'moment';
 
-interface Habit {
-  habit: string;
-  repetition: { [weekDayNum: string]: boolean };
-  amount: number | null;
-  unit: string;
-  remindAt: string | null;
-  id: string;
-}
+import { IDHabit } from '../types/type';
 
 interface Achievement {
   id: string;
@@ -19,7 +12,7 @@ interface Achievement {
 }
 
 interface State {
-  habits: Habit[];
+  habits: IDHabit[];
   achievement: Achievement[];
   selectedDay: string;
 }
@@ -35,12 +28,14 @@ const habit = createSlice({
   initialState,
   reducers: {
     initialize: () => initialState,
-    add: (state: State, { payload }: PayloadAction<Habit>) => {
+    add: (state: State, { payload }: PayloadAction<IDHabit>) => {
       state.habits.push(payload);
     },
-    update: (state: State, { payload }: PayloadAction<Habit>) => {
+    update: (state: State, { payload }: PayloadAction<IDHabit>) => {
       const { id } = payload;
-      Object.assign(state, { habits: state.habits.map(h => (h.id === id ? payload : h)) });
+      Object.assign(state, {
+        habits: state.habits.map(h => (h.id === id ? payload : h)),
+      });
     },
     remove: (state: State, { payload }: PayloadAction<string>) => {
       const habits = state.habits.filter(h => h.id !== payload);

@@ -11,44 +11,17 @@ import 'moment/locale/ja';
 
 import uuidv4 from 'uuid/v4';
 
-interface Repetition {
-  [weekDayNum: string]: boolean;
-  // Domain of weekDayNum is as follows
-  // 0: sun
-  // 1: mon
-  // 2: tue
-  // 3: wed
-  // 4: thu
-  // 5: fri
-  // 6: sat
-}
+import { Habit, IDHabit } from '../types/type';
 
-interface Habit {
-  habit: string;
-  repetition: Repetition;
-  amount: number | string | null;
-  unit: string;
-  remindAt: Date | null;
+interface HabitProp extends Habit {
   reminder: boolean;
 }
 
-interface Arg {
-  habit: string;
-  repetition: Repetition;
-  // from form                => string
-  // from props (redux state) => number
-  // on page loaded           => null
-  amount: number | null;
-  unit: string;
-  remindAt: string | null;
-  id: string;
+interface Props extends HabitProp {
+  createHabit: (habit: IDHabit) => void;
 }
 
-type Props = Habit & {
-  createHabit: (habit: Arg) => void;
-};
-
-type State = Habit & {};
+type State = HabitProp;
 
 const styles = StyleSheet.create({
   weekdayButton: {
@@ -63,7 +36,7 @@ const styles = StyleSheet.create({
 });
 
 class HabitSetting extends React.Component<Props, State> {
-  static defaultProps: Habit = {
+  static defaultProps: HabitProp = {
     habit: '',
     repetition: {
       0: false, // sun
@@ -77,7 +50,7 @@ class HabitSetting extends React.Component<Props, State> {
     amount: null,
     unit: '',
     reminder: false,
-    remindAt: new Date(),
+    remindAt: new Date().toJSON(),
   };
 
   constructor(props: Props) {
@@ -159,12 +132,12 @@ class HabitSetting extends React.Component<Props, State> {
                 })}
               </View>
             </Item>
-            <Item inlineLabel error={amount !== null && amount !== '' && !Number(amount)}>
+            <Item inlineLabel error={amount !== null && !Number(amount)}>
               <Label>量</Label>
               <Input
                 value={amount ? amount.toString() : undefined}
                 keyboardType="numeric"
-                onChangeText={v => this.setState({ amount: v })}
+                onChangeText={v => this.setState({ amount: Number(v) })}
               />
             </Item>
             <Item inlineLabel disabled={!amount}>
@@ -196,17 +169,17 @@ class HabitSetting extends React.Component<Props, State> {
                 {reminder && remindAt && (
                   <DatePickerIOS
                     mode="time"
-                    date={remindAt}
+                    date={new Date(remindAt)}
                     locale="ja"
                     minuteInterval={10}
-                    onDateChange={date => this.setState({ remindAt: date })}
+                    onDateChange={date => this.setState({ remindAt: date.toJSON() })}
                   />
                 )}
               </View>
             </Item>
             <Button
               block
-              disabled={!habit || (amount !== null && amount !== '' && !Number(amount))}
+              disabled={!habit || (amount !== null && !Number(amount))}
               onPress={() => this.handleCreateHabit()}
               style={styles.createButton}
             >

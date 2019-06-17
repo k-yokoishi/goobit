@@ -26,6 +26,7 @@ module.exports = {
     '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/explicit-function-return-type': 'off', // annoying to force return type
     '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/interface-name-prefix': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {

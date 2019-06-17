@@ -5,17 +5,10 @@ import { Dispatch } from 'redux';
 import { NavigationTransitionProps } from 'react-navigation';
 import HabitSetting from '../component/HabitSetting';
 import { add } from '../redux/habit';
+import { IDHabit } from '../types/type';
 
-interface Habit {
-  habit: string;
-  repetition: { [weekDayNum: string]: boolean };
-  amount: number | null;
-  unit: string;
-  remindAt: string | null;
-  id: string;
-}
 type Props = {
-  createHabit: (habit: Habit) => void;
+  createHabit: (habit: IDHabit) => void;
 } & NavigationTransitionProps;
 
 const HabitSettingApp = ({ createHabit }: Props) => <HabitSetting createHabit={createHabit} />;
@@ -25,7 +18,7 @@ HabitSettingApp.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props) => ({
-  createHabit: (habit: Habit) => {
+  createHabit: (habit: IDHabit) => {
     dispatch(add(habit));
     ownProps.navigation.navigate('Habit');
   },

@@ -6,26 +6,10 @@ import { NavigationTransitionProps } from 'react-navigation';
 import Home from '../component/Home';
 import { toggleDone as toggleDoneAction, selectDay as selectDayAction } from '../redux/habit';
 import { AppState } from '../redux/reducer';
+import { IDHabit, Achievement } from '../types/type';
 
-interface Habit {
-  id: string;
-  habit: string;
-  repetition: { [weekDayNum: string]: boolean };
-  amount: number;
-  unit: string;
-  remindAt: string | null;
+interface Habit extends IDHabit {
   done: boolean;
-  date: string;
-}
-
-interface Achievement {
-  id: string;
-  habit: string;
-  // repetition: { [weekDayNum: string]: boolean };
-  amount: number | null;
-  unit: string;
-  // remindAt: string | null;
-  // done: boolean;
   date: string;
 }
 
@@ -36,7 +20,6 @@ type Props = {
   selectedDay: string;
   selectDay: (jsonDate: string) => void;
   toggleDone: (habit: Achievement) => void;
-  // toggleDone: (habit: Habit) => void;
 } & NavigationTransitionProps;
 
 const HomeApp = ({

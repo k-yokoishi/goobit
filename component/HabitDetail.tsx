@@ -67,7 +67,7 @@ class HabitDetail extends React.Component<Props, State> {
           .filter(a => moment(a.date).year() === visibleYear)
           .filter(a => moment(a.date).month() + 1 === visibleMonth)
           .filter(a => week.isSame(moment(a.date), 'week'))
-          .reduce((x, y) => x + y.amount, 0) || 0,
+          .reduce((x, y) => x + (y.amount || 0), 0) || 0,
     }));
 
     return (

@@ -7,16 +7,10 @@ import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import Swipeable from 'react-native-swipeable';
 import Desk from '../assets/desk.svg';
-
-interface Habit {
-  id: string;
-  habit: string;
-  unit: string;
-  amount: number;
-}
+import { IDHabit } from '../types/type';
 
 interface Props {
-  habits: Habit[];
+  habits: IDHabit[];
   remove: (habitId: string) => void;
   edit: (habitId: string) => void;
   pressItem: (habitId: string) => void;

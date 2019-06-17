@@ -16,23 +16,10 @@ import SvgUri from 'react-native-svg-uri';
 import { AdMobBanner } from 'expo';
 import HorizontalCalender from './HorizontalCalender';
 import SunBed from '../assets/sunbed.svg';
+import { IDHabit, Achievement } from '../types/type';
 
-interface Habit {
-  id: string;
-  habit: string;
-  repetition: { [weekDayNum: string]: boolean };
-  amount: number;
-  unit: string;
-  remindAt: string | null;
+interface Habit extends IDHabit {
   done: boolean;
-}
-
-interface Achievement {
-  id: string;
-  habit: string;
-  amount: number | null;
-  unit: string;
-  date: string;
 }
 
 interface Props {

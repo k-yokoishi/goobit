@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { NavigationTransitionProps } from 'react-navigation';
 
 import HabitDetail from '../component/HabitDetail';
-import { Achievement, Habit } from '../types/type';
+import { Achievement, IDHabit } from '../types/type';
 import { AppState } from '../redux/reducer';
 
 interface Props {
   achievements: Achievement[];
-  habits: Habit[];
+  habits: IDHabit[];
 }
 
 const HabitDetailApp = ({

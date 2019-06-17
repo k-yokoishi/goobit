@@ -5,6 +5,7 @@ import { NavigationTransitionProps } from 'react-navigation';
 import HabitComponent from '../component/Habit';
 import { remove as removeAction } from '../redux/habit';
 import { AppState } from '../redux/reducer';
+import { IDHabit } from '../types/type';
 
 interface Habit {
   id: string;
@@ -13,10 +14,10 @@ interface Habit {
   amount: number;
 }
 
-type Props = {
-  habits: Habit[];
+interface Props extends NavigationTransitionProps {
+  habits: IDHabit[];
   remove: (id: string) => void;
-} & NavigationTransitionProps;
+}
 
 const HabitApp = ({ habits, remove, navigation }: Props) => (
   <HabitComponent
