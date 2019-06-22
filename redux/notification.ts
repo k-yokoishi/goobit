@@ -1,15 +1,10 @@
 import { createSlice, PayloadAction } from 'redux-starter-kit';
-
-interface Notification {
-  habitId: string;
-  notifId: string;
-  notifyAt: string;
-}
+import { Notification } from '../types/type';
 
 interface State {
   notifications: Notification[];
 }
-const initialState = {
+const initialState: State = {
   notifications: [],
 };
 
